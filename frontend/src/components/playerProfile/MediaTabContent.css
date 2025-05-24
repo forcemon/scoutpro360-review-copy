@@ -1,0 +1,121 @@
+/* src/components/playerProfile/MediaTabContent.css */
+
+.media-tab-card {
+    /* Inherits .card styles */
+}
+
+/* Inherits .card-title styles */
+
+.media-section {
+    margin-bottom: 30px; /* Space between image and video sections */
+}
+.media-section:last-of-type {
+    margin-bottom: 15px; /* Less margin at the end */
+}
+
+.media-section-title {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary-text);
+    margin-bottom: 15px;
+    padding-bottom: 10px; /* Optional separator */
+    border-bottom: 1px solid var(--border-color); /* Optional separator */
+}
+.media-section-title svg {
+    margin-right: 10px;
+    color: var(--accent-color); /* Accent color for icon */
+    width: 18px;
+    text-align: center;
+}
+
+/* Grid for images and videos */
+.media-grid {
+    display: grid;
+    /* Adjust min size as preferred */
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px; /* Space between items */
+}
+
+.media-item {
+    position: relative;
+    aspect-ratio: 16 / 10; /* Aspect ratio */
+    border-radius: calc(var(--border-radius) / 2); /* Slightly less rounded */
+    overflow: hidden;
+    cursor: pointer;
+    background-color: var(--tertiary-bg); /* Background while loading */
+    border: 1px solid var(--border-color); /* Subtle border */
+    outline: none; /* Remove default focus outline */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+/* Focus style for accessibility */
+.media-item:focus-visible {
+     box-shadow: 0 0 0 2px var(--primary-bg), 0 0 0 4px var(--accent-color);
+     transform: scale(1.03); /* Slight zoom on focus */
+}
+
+
+.media-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area */
+    transition: transform 0.3s ease, filter 0.3s ease;
+    display: block; /* Prevent extra space below image */
+}
+
+.media-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.9); /* Slightly darken on hover */
+}
+.media-item:focus-visible img { /* Keep hover effect on focus */
+     transform: scale(1.05);
+     filter: brightness(0.9);
+}
+
+
+/* Play Icon for Video Items */
+.media-item.video-item::before {
+    content: "\f04b"; /* FontAwesome play icon unicode */
+    font-family: "Font Awesome 6 Free"; /* Ensure correct font family */
+    font-weight: 900; /* Use solid style */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.9); /* Semi-transparent white icon */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+    width: 36px; /* Circle size */
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px; /* Play icon size */
+    z-index: 2; /* Above the image */
+    pointer-events: none; /* Don't interfere with clicks on the item */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition */
+}
+
+.media-item.video-item:hover::before,
+.media-item.video-item:focus-visible::before { /* Apply also on focus */
+     background-color: rgba(0, 0, 0, 0.7); /* Darker background */
+     transform: translate(-50%, -50%) scale(1.1); /* Make icon slightly larger */
+}
+
+
+.no-media-info {
+    font-size: 13px;
+    color: var(--secondary-text);
+    text-align: center;
+    padding: 30px 15px;
+    font-style: italic;
+}
+
+/* Placeholder data note */
+.media-tab-note {
+     font-size: 11px; color: var(--secondary-text); font-style: italic;
+     margin-top: 25px; padding-top: 15px;
+     border-top: 1px dashed var(--border-color); text-align: center;
+}
+

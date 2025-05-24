@@ -1,0 +1,55 @@
+/* src/components/players/PlayerTableRow.css */
+
+.player-table-row td {
+    padding: 12px 15px; /* Padding celdas */
+    vertical-align: middle; /* Alinear contenido verticalmente */
+    color: var(--primary-text);
+}
+
+.player-cell-image {
+    padding: 8px 15px; /* Menos padding vertical para la imagen */
+}
+
+.player-thumbnail {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Imagen redonda */
+    object-fit: cover; /* Cubrir el área */
+    background-color: var(--tertiary-bg); /* Fondo por si no carga */
+    vertical-align: middle; /* Alinear imagen */
+}
+
+.player-cell-name {
+    font-weight: 500; /* Nombre ligeramente más grueso */
+}
+
+/* Centrar columnas específicas */
+.player-cell-age,
+.player-cell-rating {
+    text-align: center;
+}
+
+.player-cell-rating {
+    text-align: right; /* O alinear a la derecha */
+    padding-right: 20px; /* Más padding derecho para rating */
+}
+
+.rating-display {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alinear a la derecha */
+    gap: 5px;
+}
+
+.rating-stars {
+    color: var(--accent-color); /* Estrellas en color de acento */
+    font-size: 13px; /* Tamaño estrellas */
+    letter-spacing: 1px; /* Espacio entre estrellas */
+}
+
+.rating-value {
+    font-size: 13px;
+    color: var(--secondary-text);
+    min-width: 30px; /* Ancho mínimo para el valor */
+    text-align: right;
+}

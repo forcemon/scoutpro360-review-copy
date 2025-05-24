@@ -1,0 +1,90 @@
+/* src/pages/MyReportsPage.css */
+
+.my-reports-page {
+    /* Estilos generales si son necesarios */
+  }
+  
+  /* Cabecera de Página */
+  .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+  }
+  .header-title h1 { font-size: 24px; font-weight: 600; margin-bottom: 5px; color: var(--primary-text); }
+  .header-title p { color: var(--secondary-text); font-size: 14px; }
+  .header-actions { display: flex; gap: 15px; flex-wrap: wrap;}
+  .header-button { display: flex; align-items: center; font-size: 14px; font-weight: 500; padding: 10px 15px; border-radius: var(--border-radius); cursor: pointer; transition: all 0.3s ease; border: none; }
+  .header-button.primary { background-color: var(--accent-color); color: #1a1d24; }
+  .header-button.primary:hover { background-color: var(--accent-hover); }
+  .header-button.secondary { background-color: var(--tertiary-bg); color: var(--primary-text); }
+  .header-button.secondary:hover { background-color: #3a414e; }
+  .header-button svg { margin-right: 8px; }
+  
+  /* Controles de Vista (Usan ViewControls.css) */
+  /* No se necesita estilo específico aquí si ViewControls.css es suficiente */
+  
+  /* Área de Contenido Principal para Informes */
+  .reports-content-area {
+      margin-top: 20px;
+  }
+  
+  /* Cuadrícula para las tarjetas de informe */
+  .reports-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Ajusta minmax según diseño de ReportCard */
+      gap: 25px; /* Espacio entre tarjetas */
+  }
+  
+  /* Placeholders para cuando la vista de lista esté activa o cargando/error */
+  .placeholder-card {
+      min-height: 150px; /* Altura mínima para que no colapse */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary-text);
+      font-style: italic;
+      font-size: 14px;
+      border: 1px dashed var(--border-color);
+      border-radius: var(--border-radius);
+      margin-bottom: 20px; /* Mismo margen que las cards reales */
+      padding: 20px;
+      background-color: var(--secondary-bg);
+      text-align: center;
+  }
+  
+  /* Estilos indicadores */
+  .loading-indicator,
+  .error-message,
+  .no-results {
+    text-align: center;
+    padding: 50px 20px; /* Más padding vertical */
+    margin-top: 0; /* Quitar margen superior si está dentro de content-area */
+    color: var(--secondary-text);
+    font-size: 16px;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    /* Quitar margen inferior si Paginación va después */
+    margin-bottom: 0;
+  }
+  .loading-indicator svg { margin-right: 10px; }
+  .error-message { color: var(--physical-color); background-color: rgba(255, 71, 87, 0.05); border: 1px solid var(--physical-color); }
+  
+  /* --- Responsive --- */
+  @media (max-width: 576px) {
+      .reports-grid {
+          grid-template-columns: 1fr; /* Apilar tarjetas en móvil */
+          gap: 20px;
+      }
+      .header-actions {
+          width: 100%;
+          justify-content: center;
+      }
+      .header-button {
+          flex-grow: 1;
+          justify-content: center;
+      }
+  }

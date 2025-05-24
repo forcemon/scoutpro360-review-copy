@@ -1,0 +1,47 @@
+/* src/components/playerProfile/CompareTabContent.css */
+
+.compare-tab-card {
+    /* Inherits .card */
+}
+
+/* Inherits .card-title */
+
+.compare-placeholder-content {
+    padding: 50px 30px; /* More padding */
+    text-align: center;
+    color: var(--secondary-text);
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 300px; /* Give it some height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--tertiary-bg); /* Subtle background */
+    border-radius: var(--border-radius);
+    border: 1px dashed var(--border-color); /* Dashed border */
+}
+.compare-placeholder-content .placeholder-icon {
+    margin-bottom: 25px;
+    opacity: 0.5;
+    color: var(--accent-color);
+}
+
+.compare-placeholder-content p:first-of-type { /* Placeholder title */
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--primary-text);
+    margin-bottom: 15px;
+}
+.compare-placeholder-content p:nth-of-type(2) { /* Description */
+     max-width: 500px; /* Limit width for readability */
+     margin-bottom: 25px; /* Space before note */
+}
+
+/* Placeholder data note */
+.compare-tab-note {
+     font-size: 11px; color: var(--secondary-text); font-style: italic;
+     margin-top: 20px; padding-top: 15px;
+     border-top: 1px dashed var(--border-color); text-align: center;
+     max-width: 500px; /* Limit note width */
+}

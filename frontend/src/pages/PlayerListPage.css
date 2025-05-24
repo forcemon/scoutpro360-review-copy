@@ -1,0 +1,101 @@
+/* src/pages/PlayerListPage.css */
+
+.player-list-page {
+    /* Estilos generales para la página */
+  }
+  
+  /* Estilos para los controles de vista/ordenación */
+  .view-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+  }
+  
+  /* Placeholder para los controles reales */
+  .view-controls.placeholder-controls {
+    color: var(--secondary-text);
+    font-style: italic;
+    min-height: 50px; /* Darle algo de altura */
+  }
+  
+  .view-info {
+    font-size: 14px;
+    color: var(--secondary-text);
+  }
+  
+  /* Estilo para la sección de contenido principal */
+  .player-list-content {
+    /* Puedes añadir estilos aquí si necesitas un contenedor */
+  }
+  
+  /* Placeholder para la tabla/grid */
+  .placeholder-card {
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary-text);
+      font-style: italic;
+      border: 1px dashed var(--border-color);
+      margin-bottom: 20px;
+  }
+  
+  /* Placeholder para paginación */
+  .placeholder-pagination {
+       min-height: 50px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       color: var(--secondary-text);
+       font-style: italic;
+       border: 1px dashed var(--border-color);
+       border-radius: var(--border-radius);
+       margin-top: 20px;
+  }
+  
+  
+  /* Indicadores de carga y error */
+  .loading-indicator,
+  .error-message,
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--secondary-text);
+    font-size: 16px;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+  }
+  
+  .error-message {
+    color: var(--physical-color); /* Color rojo para errores */
+    background-color: rgba(255, 71, 87, 0.1);
+    border: 1px solid var(--physical-color);
+  }
+
+  /* Estilos para indicadores de estado */
+.loading-indicator,
+.error-message,
+.no-results {
+  text-align: center;
+  padding: 50px 20px; /* Más padding vertical */
+  margin-top: 20px; /* Espacio arriba */
+  color: var(--secondary-text);
+  font-size: 16px;
+  background-color: var(--secondary-bg); /* Usar fondo de tarjeta */
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.loading-indicator i {
+    margin-right: 10px;
+}
+
+.error-message {
+  color: var(--physical-color); /* Rojo para errores */
+  background-color: rgba(255, 71, 87, 0.05); /* Fondo rojo muy suave */
+  border: 1px solid var(--physical-color);
+}

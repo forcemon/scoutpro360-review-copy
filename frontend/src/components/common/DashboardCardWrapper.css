@@ -1,0 +1,65 @@
+/* src/components/common/DashboardCardWrapper.css */
+
+.dashboard-card {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 25px; /* Espacio estándar entre tarjetas */
+    box-shadow: var(--card-shadow);
+    height: 100%; /* Para que ocupe altura en el grid si es necesario */
+    display: flex; /* Para permitir que el body crezca */
+    flex-direction: column;
+}
+
+.dashboard-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dashboard-card-title {
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    color: var(--primary-text);
+}
+
+/* Estilo para el icono del título (aplicado a <FontAwesomeIcon>) */
+.dashboard-card-title .card-title-icon {
+    color: var(--accent-color);
+    margin-right: 10px;
+    font-size: 16px; /* Tamaño del icono */
+    width: 20px; /* Ancho fijo para alineación */
+    text-align: center;
+    vertical-align: middle; /* Alinear mejor con el texto */
+}
+
+.dashboard-card-action {
+    font-size: 13px;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.dashboard-card-action:hover {
+    color: var(--accent-hover);
+}
+
+/* Icono de flecha en la acción */
+.dashboard-card-action i {
+    margin-left: 5px;
+    font-size: 11px;
+}
+
+.dashboard-card-body {
+   flex-grow: 1; /* El contenido ocupa el espacio restante */
+   /* Quitar padding si los componentes internos ya lo manejan */
+   /* padding-top: 5px; */
+}

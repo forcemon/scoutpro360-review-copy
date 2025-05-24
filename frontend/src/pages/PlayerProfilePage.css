@@ -1,0 +1,35 @@
+/* src/pages/PlayerProfilePage.css */
+
+.profile-loading-state,
+.profile-error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px; /* Darle altura */
+    padding: 40px;
+    text-align: center;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    color: var(--secondary-text);
+    font-size: 1.1em;
+}
+
+.profile-loading-state p {
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+.profile-error-state {
+    color: var(--physical-color); /* Rojo para error */
+    border: 1px solid rgba(255, 71, 87, 0.3);
+}
+
+.player-profile-page {
+    /* Estilos generales para la página, si son necesarios */
+}
+
+.tab-content-area {
+    margin-top: 20px;
+}

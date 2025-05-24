@@ -1,0 +1,81 @@
+/* src/components/dashboard/StatSummaryCard.css */
+
+.stat-summary-card {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 20px 25px; /* Padding ajustado */
+    position: relative; /* Para posicionar el icono */
+    overflow: hidden; /* Para efectos de fondo si los hubiera */
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; /* Para alinear icono y contenido si se quiere diferente layout */
+    flex-direction: column; /* Por defecto, contenido apilado */
+}
+
+.stat-summary-card:hover {
+    transform: translateY(-5px); /* Efecto elevación */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* Icono principal en la esquina */
+.stat-icon {
+    position: absolute;
+    top: 18px; /* Ajustar posición */
+    right: 18px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px; /* Tamaño icono interno */
+    opacity: 0.9;
+}
+
+/* Colores para los fondos de los iconos */
+.stat-icon.blue { background-color: rgba(46, 134, 222, 0.15); color: #2e86de; }
+.stat-icon.green { background-color: rgba(38, 222, 129, 0.15); color: #26de81; }
+.stat-icon.purple { background-color: rgba(155, 89, 182, 0.15); color: #9b59b6; }
+.stat-icon.orange { background-color: rgba(241, 196, 15, 0.15); color: #f1c40f; }
+.stat-icon.red { background-color: rgba(255, 71, 87, 0.15); color: #ff4757; }
+
+/* Contenedor del texto principal */
+.stat-content {
+    /* Ocupa espacio, no afectado por el icono absoluto */
+}
+
+/* Valor numérico grande */
+.stat-value {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--primary-text);
+    line-height: 1.2; /* Ajustar si los números son muy altos */
+}
+
+/* Etiqueta descriptiva */
+.stat-label {
+    color: var(--secondary-text);
+    font-size: 14px;
+    margin-bottom: 15px; /* Espacio antes de la tendencia */
+}
+
+/* Contenedor para la tendencia */
+.stat-trend {
+    display: inline-flex; /* Para que ocupe solo lo necesario */
+    align-items: center; /* Alinear icono y texto */
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+/* Colores para la tendencia */
+.stat-trend.up { background-color: rgba(38, 222, 129, 0.1); color: #26de81; }
+.stat-trend.down { background-color: rgba(255, 71, 87, 0.1); color: #ff4757; }
+
+/* Icono dentro de la tendencia */
+.stat-trend .trend-icon { /* Clase específica para el icono de tendencia */
+    margin-right: 5px; /* Espacio a la derecha del icono */
+    font-size: 11px; /* Tamaño del icono de flecha */
+}

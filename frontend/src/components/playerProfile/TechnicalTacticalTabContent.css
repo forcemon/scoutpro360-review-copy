@@ -1,0 +1,154 @@
+/* frontend/src/components/playerProfile/TechnicalTacticalTabContent.css */
+
+/* Reutiliza estilos generales de tarjeta, cuadrícula, columnas y headers */
+/* Podrías importarlos de PhysicalTabContent.css si usas preprocesadores o CSS Modules, */
+/* o copiarlos/adaptarlos aquí. Copiamos los esenciales: */
+
+.technical-tactical-tab-content.card {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+  }
+  
+  .technical-tactical-tab-content .card-title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-text); /* Texto primario para este título */
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .technical-tactical-tab-content .card-title svg {
+    margin-right: 10px;
+    color: var(--accent-color); /* Icono con color de acento */
+  }
+  
+  .technical-tactical-tab-content .content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+  }
+  
+  .technical-tactical-tab-content .main-column,
+  .technical-tactical-tab-content .side-column {
+    /* No styles needed unless specific overrides */
+  }
+  
+  .technical-tactical-tab-content .section-header {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    /* Usar colores específicos por tipo? O color de acento? Usemos acento */
+    color: var(--accent-color);
+    margin-top: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+  }
+  
+  .technical-tactical-tab-content .section-header:first-child {
+    margin-top: 0;
+  }
+  
+  .technical-tactical-tab-content .section-header svg {
+    margin-right: 8px;
+    font-size: 14px;
+    width: 16px;
+    text-align: center;
+    /* Color del icono puede heredar o ser específico */
+    /* color: var(--accent-color); */
+  }
+  
+  /* Estilos para AttributeItem (adaptados) */
+  .technical-tactical-tab-content .attribute-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+  
+  .technical-tactical-tab-content .attribute-name {
+    color: var(--secondary-text);
+    flex-basis: 45%; /* Ajusta según necesites */
+    flex-shrink: 0;
+    padding-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .technical-tactical-tab-content .attribute-bar {
+    flex-grow: 1;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 10px;
+  }
+  
+  .technical-tactical-tab-content .attribute-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease-out;
+  }
+  
+  /* --- COLORES ESPECÍFICOS PARA BARRAS --- */
+  .technical-tactical-tab-content .attribute-item.technical .attribute-fill {
+    background-color: var(--technical-color); /* Azul */
+  }
+  
+  .technical-tactical-tab-content .attribute-item.tactical .attribute-fill {
+    background-color: var(--tactical-color); /* Verde */
+  }
+  /* --- FIN COLORES ESPECÍFICOS --- */
+  
+  
+  .technical-tactical-tab-content .attribute-value {
+    font-weight: 600;
+    color: var(--primary-text);
+    min-width: 65px; /* Ajusta según necesites */
+    text-align: right;
+  }
+  
+  /* --- Responsive Adjustments (Igual que en Physical) --- */
+  @media (max-width: 992px) {
+    .technical-tactical-tab-content .content-grid {
+      grid-template-columns: 1fr;
+      gap: 0px;
+    }
+    .technical-tactical-tab-content .side-column .section-header {
+       margin-top: 30px;
+    }
+     .technical-tactical-tab-content .attribute-name {
+       flex-basis: 40%;
+     }
+  }
+  
+  @media (max-width: 576px) {
+     .technical-tactical-tab-content .attribute-name {
+       flex-basis: 120px;
+       flex-shrink: 0;
+       white-space: normal;
+       overflow: visible;
+       text-overflow: clip;
+     }
+      .technical-tactical-tab-content .attribute-value {
+       min-width: 50px;
+     }
+     .technical-tactical-tab-content.card {
+       padding: 15px;
+     }
+     .technical-tactical-tab-content .section-header {
+       font-size: 15px;
+     }
+      .technical-tactical-tab-content .attribute-item {
+       font-size: 13px;
+     }
+  }
+  
+  

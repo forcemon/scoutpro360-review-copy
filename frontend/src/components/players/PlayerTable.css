@@ -1,0 +1,48 @@
+/* src/components/players/PlayerTable.css */
+
+.player-table-container {
+    padding: 0; /* Quitar padding del card si la tabla lo maneja */
+    overflow-x: auto; /* Permitir scroll horizontal si la tabla es muy ancha */
+    margin-bottom: 20px; /* Espacio debajo de la tabla */
+}
+
+.player-table {
+    width: 100%;
+    border-collapse: collapse; /* Unir bordes */
+    font-size: 14px; /* Tamaño de fuente base para la tabla */
+}
+
+.player-table thead {
+    background-color: var(--tertiary-bg); /* Fondo para la cabecera */
+}
+
+.player-table th {
+    text-align: left;
+    padding: 12px 15px; /* Padding en cabeceras */
+    font-weight: 600; /* Cabeceras en negrita */
+    color: var(--secondary-text); /* Color secundario para cabeceras */
+    text-transform: uppercase; /* Opcional: Mayúsculas */
+    font-size: 12px; /* Tamaño de fuente cabeceras */
+    letter-spacing: 0.5px; /* Espaciado letras */
+    border-bottom: 2px solid var(--border-color); /* Borde más grueso abajo */
+}
+
+.player-table tbody tr {
+    border-bottom: 1px solid var(--border-color); /* Línea entre filas */
+    cursor: pointer; /* Indicar que la fila es clickeable */
+    transition: background-color 0.2s ease;
+}
+
+.player-table tbody tr:last-child {
+    border-bottom: none; /* Sin borde en la última fila */
+}
+
+.player-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.04); /* Resaltado sutil al pasar el mouse */
+}
+
+/* Estilos específicos para centrar/alinear columnas */
+.player-table th:nth-child(3), /* Edad */
+.player-table th:nth-child(7) { /* Valoración */
+    text-align: center;
+}

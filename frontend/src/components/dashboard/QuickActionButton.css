@@ -1,0 +1,39 @@
+/* src/components/dashboard/QuickActionButton.css */
+
+.quick-action-button {
+    background-color: var(--tertiary-bg); /* Fondo base */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    text-align: center; /* Centrar texto e icono */
+    cursor: pointer; /* Cursor de mano */
+    border: none; /* Sin borde por defecto */
+    color: var(--primary-text); /* Color de texto principal */
+    font-family: inherit; /* Heredar fuente */
+    display: flex; /* Para centrar contenido verticalmente */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+    min-height: 110px; /* Altura mínima para consistencia */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra ligera */
+}
+
+.quick-action-button:hover {
+    background-color: var(--secondary-bg); /* Ligeramente más oscuro al pasar */
+    transform: translateY(-3px); /* Efecto sutil de elevación */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Sombra más pronunciada */
+}
+
+/* Estilo del icono FontAwesome */
+.quick-action-icon {
+    font-size: 26px; /* Tamaño del icono */
+    color: var(--accent-color); /* Color de acento para el icono */
+    margin-bottom: 12px; /* Espacio debajo del icono */
+}
+
+/* Estilo del texto debajo del icono */
+.quick-action-text {
+    font-size: 14px;
+    font-weight: 500; /* Texto ligeramente más grueso */
+    line-height: 1.3; /* Ajustar si el texto tiene dos líneas */
+}

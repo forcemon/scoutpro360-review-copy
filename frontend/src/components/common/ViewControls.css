@@ -1,0 +1,130 @@
+/* src/components/common/ViewControls.css */
+
+.view-controls-container {
+    display: flex;
+    justify-content: space-between; /* Separa info y opciones */
+    align-items: center;
+    flex-wrap: wrap; /* Permite que los elementos bajen si no caben */
+    gap: 15px; /* Espacio entre info y opciones */
+    margin-bottom: 20px;
+    padding: 12px 20px; /* Padding interno */
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color); /* Borde sutil */
+}
+
+.view-info {
+    font-size: 14px;
+    color: var(--secondary-text);
+    white-space: nowrap;
+    padding-right: 15px; /* Espacio si los controles se acercan mucho */
+}
+
+.view-options {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que los controles bajen */
+    gap: 15px; /* Espacio entre controles (botones y select) */
+}
+
+/* Estilos para los botones de vista (Grid/List) */
+.view-option {
+    padding: 8px 10px; /* Padding ajustado para botones de icono */
+    background-color: var(--tertiary-bg);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrar icono */
+    color: var(--secondary-text);
+    transition: all 0.2s ease-out;
+    border: 1px solid var(--tertiary-bg); /* Borde del mismo color */
+    font-family: inherit;
+    font-size: 14px; /* Tamaño del icono */
+    line-height: 1;
+    min-width: 40px; /* Ancho mínimo */
+    aspect-ratio: 1 / 1; /* Hacerlos cuadrados si solo llevan icono */
+}
+
+/* Opcional: Ocultar texto si solo quieres iconos */
+/*
+.view-option span {
+    display: none;
+}
+.view-option svg {
+     margin-right: 0;
+}
+*/
+
+/* Estado activo del botón de vista */
+.view-option.active {
+    background-color: var(--accent-light);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    font-weight: 500;
+    box-shadow: 0 0 5px rgba(255, 193, 7, 0.2);
+}
+
+.view-option:hover:not(.active) {
+    background-color: var(--border-color);
+    color: var(--primary-text);
+    border-color: var(--border-color);
+}
+
+/* Icono dentro del botón de vista */
+.view-option svg { /* Estilo para FontAwesomeIcon */
+    font-size: 14px;
+    /* Quitar margen si no hay texto: */
+    /* margin-right: 0; */
+     margin-right: 6px; /* Espacio si mantienes el texto */
+}
+
+/* Contenedor y etiqueta para el select de ordenación */
+.sort-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-label {
+    font-size: 13px;
+    color: var(--secondary-text);
+    white-space: nowrap;
+    display: none; /* Ocultar etiqueta por defecto, se entiende por el contexto */
+}
+
+/* Select de Ordenación */
+.sort-select {
+    background-color: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px 30px 8px 12px;
+    color: var(--primary-text);
+    font-size: 13px;
+    width: auto;
+    min-width: 180px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a0a0a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    height: 38px; /* Misma altura que botones */
+}
+.sort-select:focus { outline: none; border-color: var(--accent-color); }
+.sort-select option { background-color: var(--tertiary-bg); color: var(--primary-text); }
+
+/* --- Responsive --- */
+ @media (max-width: 768px) {
+    .view-controls-container { flex-direction: column; align-items: stretch; } /* Apilar y estirar */
+    .view-options { width: 100%; justify-content: flex-start; /* Alinear a la izquierda */}
+    .sort-control { flex-grow: 1; } /* Permitir que el select crezca */
+    .sort-select { width: 100%; min-width: auto; }
+     .view-info { text-align: center; margin-bottom: 10px; padding-right: 0; } /* Centrar info */
+ }
+ @media (max-width: 480px) {
+     .view-options { justify-content: space-between; } /* Distribuir botones y select */
+     .sort-control { flex-grow: 0; width: auto; } /* No forzar ancho completo del select */
+     .sort-label { display: none; } /* Ocultar etiqueta en móvil */
+ }

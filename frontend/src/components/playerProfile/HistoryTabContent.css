@@ -1,0 +1,201 @@
+/* src/components/playerProfile/HistoryTabContent.css */
+
+.history-tab-card {
+    /* Hereda .card */
+    /* Quitar padding si las secciones internas lo manejan */
+    padding: 0;
+    background: none; /* Hacer transparente si el fondo viene de las sub-secciones */
+    box-shadow: none;
+}
+
+/* Hereda .content-grid, .main-column, .side-column */
+.history-grid {
+    gap: 30px; /* Espacio entre columnas */
+}
+
+.history-section {
+    /* Usar .card para las secciones principales */
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 30px; /* Espacio entre secciones en la misma columna */
+}
+.history-section:last-child {
+    margin-bottom: 0;
+}
+
+.history-section-title.card-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex; /* Asegurar alineación icono/texto */
+    align-items: center;
+}
+.history-section-title.card-title svg {
+    margin-right: 10px;
+    font-size: 15px;
+    width: 18px;
+    text-align: center;
+}
+
+
+/* Estilos Timeline */
+.timeline {
+    position: relative;
+    padding-left: 25px;
+    margin-top: 5px; /* Reducir espacio sobre timeline */
+}
+
+.timeline-line {
+    position: absolute;
+    left: 8px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background-color: var(--border-color);
+    z-index: 1;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 25px;
+}
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 0px;
+    top: 4px;
+    width: 18px;
+    height: 18px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    border: 3px solid var(--secondary-bg);
+    z-index: 2;
+}
+
+.timeline-date {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 5px;
+}
+
+.timeline-card {
+    background-color: var(--tertiary-bg);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    border: 1px solid var(--border-color);
+}
+
+.timeline-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 2px;
+    color: var(--primary-text);
+}
+
+.timeline-subtitle {
+    font-size: 13px;
+    color: var(--secondary-text);
+    margin-bottom: 10px;
+}
+
+.timeline-content {
+    font-size: 13px;
+    color: var(--secondary-text);
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.timeline-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 15px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.timeline-stat {
+    font-size: 12px;
+    color: var(--secondary-text);
+}
+
+.timeline-stat strong {
+    font-weight: 500;
+    color: var(--primary-text);
+    margin-right: 3px;
+}
+
+/* Estilos Historial Lesiones */
+.injury-list {
+    margin-top: 5px; /* Reducir espacio */
+}
+
+.injury-card { /* Sub-card para cada lesión */
+    background-color: var(--tertiary-bg);
+    border-radius: var(--border-radius);
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color);
+}
+.injury-card:last-child {
+    margin-bottom: 0;
+}
+
+.injury-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.injury-type {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--primary-text);
+}
+
+.injury-date {
+    font-size: 11px;
+    color: var(--secondary-text);
+    white-space: nowrap;
+    padding-left: 10px;
+}
+
+.injury-details {
+    font-size: 12px;
+    color: var(--secondary-text);
+    line-height: 1.4;
+}
+
+/* Mensaje 'Sin historial' */
+.no-history {
+    font-size: 13px;
+    color: var(--secondary-text);
+    font-style: italic;
+    padding: 15px 0;
+}
+.no-history.center { text-align: center; }
+
+/* Nota placeholder */
+.history-tab-note {
+     font-size: 11px; color: var(--secondary-text); font-style: italic;
+     margin-top: 20px; padding-top: 15px;
+     border-top: 1px dashed var(--border-color); text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .history-grid { grid-template-columns: 1fr; }
+    .history-section { margin-bottom: 30px; }
+}

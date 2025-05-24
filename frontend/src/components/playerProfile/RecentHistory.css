@@ -1,0 +1,88 @@
+/* src/components/playerProfile/RecentHistory.css */
+
+.recent-history-card {
+    /* Hereda .card */
+}
+
+/* Hereda .card-title */
+
+.team-history-list {
+    /* Contenedor de los items */
+    margin-top: -5px; /* Reducir espacio extra bajo el título */
+}
+
+.team-item-preview {
+    display: flex;
+    align-items: center;
+    padding: 12px 5px; /* Padding ajustado */
+    border-bottom: 1px solid var(--border-color);
+    gap: 10px; /* Espacio entre logo, info y stats */
+}
+.team-item-preview:last-child {
+    border-bottom: none;
+}
+
+.team-logo-preview {
+    flex-shrink: 0; /* No encoger el logo */
+}
+.team-logo-preview img {
+    width: 32px; /* Logo un poco más pequeño */
+    height: 32px;
+    border-radius: 50%;
+    object-fit: contain; /* Usar contain si los logos no son cuadrados */
+    background-color: var(--tertiary-bg); /* Fondo por si falla imagen */
+    display: block; /* Evitar espacio extra bajo la imagen */
+}
+
+.team-info-preview {
+    flex-grow: 1; /* Ocupar espacio */
+    overflow: hidden; /* Para ellipsis si nombres son largos */
+}
+
+.team-name-preview {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.team-period-preview {
+    font-size: 11px;
+    color: var(--secondary-text);
+    white-space: nowrap;
+}
+
+.team-stats-preview {
+    font-size: 12px;
+    color: var(--secondary-text);
+    text-align: right;
+    white-space: pre-line; /* Permitir saltos de línea para stats */
+    flex-shrink: 0; /* No encoger */
+    padding-left: 10px; /* Espacio a la izquierda */
+}
+
+.view-full-history {
+    text-align: right;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color); /* Separador opcional */
+}
+.view-full-history a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+}
+.view-full-history a:hover {
+     color: var(--accent-hover);
+}
+
+.no-history-info {
+    font-size: 13px;
+    color: var(--secondary-text);
+    text-align: center;
+    padding: 20px 0;
+    font-style: italic;
+}

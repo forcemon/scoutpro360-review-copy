@@ -1,0 +1,67 @@
+/* src/index.css */
+
+/* Importar la fuente principal */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* Definir variables CSS globales (puedes tenerlas aquí o en App.css también) */
+:root {
+    --primary-bg: #1a1d24;
+    --secondary-bg: #252a34;
+    --tertiary-bg: #313742;
+    --sidebar-bg: #1e222a;
+    --sidebar-active: #2d3340;
+    --primary-text: #e0e0e0;
+    --secondary-text: #a0a0a0;
+    --accent-color: #ffc107;
+    --accent-hover: #ffe082;
+    --accent-light: rgba(255, 193, 7, 0.1);
+    --border-color: #404552;
+    --tab-active-bg: #3c424f;
+    --physical-color: #ff4757;
+    --technical-color: #2e86de;
+    --tactical-color: #26de81;
+    --player1-color: #4285f4;
+    --player2-color: #ea4335;
+    --player3-color: #34a853;
+    --player4-color: #fbbc05;
+    --font-family: 'Montserrat', sans-serif;
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    --border-radius: 8px;
+}
+
+/* Reset básico y fuente por defecto */
+body {
+  margin: 0;
+  font-family: var(--font-family), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--primary-bg); /* Fondo base del body */
+  color: var(--primary-text); /* Color de texto base */
+}
+
+/* Eliminar estilos de lista por defecto */
+ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilos base para enlaces */
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* Estilo para forzar box-sizing en todos los elementos */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

@@ -1,0 +1,104 @@
+/* src/components/playerProfile/DetailedAttributes.css */
+
+.detailed-attributes-card {
+    /* Hereda .card */
+}
+
+/* Grid para las categorías */
+.attributes-grid {
+    display: grid;
+    /* Crear columnas autoajustables, mínimo 250px */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px 30px; /* Espacio vertical y horizontal entre categorías */
+}
+
+/* Contenedor de cada categoría */
+.attribute-category {
+    /* Sin estilos adicionales necesarios por ahora */
+}
+
+/* Título de la categoría */
+.attribute-category h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Colorear título e icono según categoría */
+.attribute-category.physical h3 { color: var(--physical-color); }
+.attribute-category.technical h3 { color: var(--technical-color); }
+.attribute-category.tactical h3 { color: var(--tactical-color); }
+
+.attribute-category h3 svg { /* Estilo FontAwesomeIcon */
+    margin-right: 8px;
+    font-size: 14px; /* Ajustar tamaño icono */
+    width: 16px;
+    text-align: center;
+}
+
+/* Cada línea de atributo */
+.attribute-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px; /* Espacio entre atributos */
+    font-size: 14px; /* Tamaño base */
+}
+
+/* Nombre del atributo */
+.attribute-name {
+    color: var(--secondary-text);
+    flex-basis: 50%; /* Darle un ancho base */
+    padding-right: 10px; /* Espacio antes de la barra */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Valor numérico del atributo */
+.attribute-value {
+    font-weight: 600;
+    flex-shrink: 0; /* No encoger */
+    min-width: 30px; /* Ancho mínimo para alinear */
+    text-align: right;
+    padding-left: 10px; /* Espacio después de la barra */
+}
+
+/* Colorear valor según categoría */
+.attribute-item.physical .attribute-value { color: var(--physical-color); }
+.attribute-item.technical .attribute-value { color: var(--technical-color); }
+.attribute-item.tactical .attribute-value { color: var(--tactical-color); }
+
+/* Barra de progreso */
+.attribute-bar {
+    flex-grow: 1; /* Ocupar espacio restante */
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo de la barra */
+    border-radius: 3px;
+    overflow: hidden; /* Asegurar que el relleno no se salga */
+    margin: 0 5px; /* Pequeño margen */
+}
+
+/* Relleno de la barra */
+.attribute-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease-out; /* Animación suave */
+}
+
+/* Colorear relleno según categoría */
+.attribute-fill.physical { background-color: var(--physical-color); }
+.attribute-fill.technical { background-color: var(--technical-color); }
+.attribute-fill.tactical { background-color: var(--tactical-color); }
+
+/* Responsive: Apilar categorías en pantallas pequeñas */
+@media (max-width: 600px) {
+    .attributes-grid {
+        grid-template-columns: 1fr; /* Una sola columna */
+        gap: 30px 0; /* Solo espacio vertical */
+    }
+}

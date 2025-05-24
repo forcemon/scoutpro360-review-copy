@@ -1,0 +1,170 @@
+/* frontend/src/components/playerProfile/FieldPositions.css */
+
+/* Estilo para la tarjeta contenedora */
+.field-positions-card {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    /* --- CORRECCIÓN: Padding eliminado --- */
+    /* padding: 20px; */ /* Comentado o eliminado para que la cancha ocupe todo */
+    /* --- FIN CORRECCIÓN --- */
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+    /* Añadimos padding interno solo si es necesario para el título/leyenda */
+    padding-top: 20px; /* Mantenemos padding arriba para el título */
+    padding-bottom: 10px; /* Espacio antes de la leyenda */
+    padding-left: 20px; /* Padding lateral opcional */
+    padding-right: 20px; /* Padding lateral opcional */
+  
+  }
+  
+  .field-positions-card .card-title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-text);
+    margin-bottom: 15px; /* Reducido espacio antes del campo */
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    /* Quitamos márgenes laterales si el padding está en la tarjeta */
+    margin-left: -20px; /* Ajusta si cambiaste el padding lateral de la tarjeta */
+    margin-right: -20px; /* Ajusta si cambiaste el padding lateral de la tarjeta */
+    padding-left: 20px; /* Padding interno para el título */
+    padding-right: 20px;
+  }
+  
+  .field-positions-card .card-title i {
+    margin-right: 10px;
+    color: var(--accent-color);
+  }
+  
+  
+  /* Contenedor del campo */
+  .field-container {
+    width: 100%;
+    aspect-ratio: 105 / 68;
+    background: linear-gradient(to bottom, #2a7539, #1e522a);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    /* margin-top: 10px; Eliminado, el espacio lo da el título */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Estilo para el SVG del campo */
+  .field-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  /* Estilo base para los puntos de posición */
+  .position-dot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary-bg);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+  
+  /* Estilos específicos para cada tipo de posición */
+  .position-dot.primary {
+    width: 32px;
+    height: 32px;
+    background-color: var(--accent-color);
+    color: #000;
+    border-color: #fff;
+    z-index: 4;
+  }
+  
+  .position-dot.secondary {
+    width: 28px;
+    height: 28px;
+    background-color: rgba(255, 193, 7, 0.7);
+    z-index: 3;
+  }
+  
+  .position-dot.alternative {
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 193, 7, 0.4);
+    font-size: 10px;
+    z-index: 2;
+  }
+  
+  /* Estilo para la leyenda */
+  .position-legend {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 15px; /* Espacio después del campo */
+    /* padding-top: 10px; Eliminado si el padding está en la tarjeta */
+    /* border-top: 1px solid var(--border-color); Eliminado si el padding está en la tarjeta */
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--secondary-text);
+  }
+  
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  
+  .legend-dot.primary {
+    background-color: var(--accent-color);
+  }
+  
+  .legend-dot.secondary {
+    background-color: rgba(255, 193, 7, 0.7);
+  }
+  
+  .legend-dot.alternative {
+    background-color: rgba(255, 193, 7, 0.4);
+  }
+  
+  /* Responsive (opcional) */
+  @media (max-width: 576px) {
+    .field-positions-card {
+      padding: 10px; /* Reducir padding general en móvil */
+       padding-top: 15px;
+       padding-bottom: 5px;
+    }
+     .field-positions-card .card-title {
+       margin-left: -10px;
+       margin-right: -10px;
+       padding-left: 10px;
+       padding-right: 10px;
+       margin-bottom: 10px;
+     }
+    .position-dot {
+       font-size: 9px;
+    }
+     .position-dot.primary { width: 28px; height: 28px; }
+     .position-dot.secondary { width: 24px; height: 24px; }
+     .position-dot.alternative { width: 20px; height: 20px; font-size: 8px;}
+  
+    .position-legend {
+        gap: 15px;
+        font-size: 11px;
+        margin-top: 10px;
+    }
+  }
+  

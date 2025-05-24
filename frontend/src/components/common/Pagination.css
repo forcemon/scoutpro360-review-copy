@@ -1,0 +1,99 @@
+/* src/components/common/Pagination.css */
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.pagination-item {
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-bg);
+    color: var(--secondary-text);
+    border-radius: var(--border-radius);
+    margin: 0 3px;
+    cursor: pointer;
+    transition: all 0.2s ease-out; /* Transición más rápida */
+    border: 1px solid var(--border-color);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1; /* Evitar altura extra por línea */
+}
+
+/* Estilos específicos para botones, quitando estilos por defecto */
+button.pagination-item {
+    font-family: inherit;
+}
+
+
+.pagination-item:not(.ellipsis):not(.disabled):hover {
+    background-color: var(--tertiary-bg);
+    border-color: var(--secondary-text);
+    color: var(--primary-text);
+    transform: translateY(-2px); /* Ligero levantamiento */
+}
+
+.pagination-item.active {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    border-color: var(--accent-color);
+    font-weight: 600;
+    cursor: default; /* No clickeable si ya está activa */
+    transform: none; /* Sin efecto hover */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.pagination-item.disabled {
+    opacity: 0.4; /* Más opaco */
+    cursor: not-allowed;
+    background-color: var(--tertiary-bg); /* Fondo ligeramente diferente */
+    border-color: var(--tertiary-bg);
+    transform: none;
+}
+.pagination-item.disabled:hover { /* Sin efecto hover en deshabilitado */
+     background-color: var(--tertiary-bg);
+     border-color: var(--tertiary-bg);
+     color: var(--secondary-text);
+}
+
+.pagination-item.ellipsis {
+    background: none;
+    border: none;
+    cursor: default;
+    padding: 0 5px;
+    min-width: auto;
+    color: var(--secondary-text);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.pagination-item.arrow {
+    font-size: 13px; /* Tamaño del icono de flecha */
+    padding: 0 12px; /* Padding específico para flechas */
+}
+
+@media (max-width: 480px) {
+     .pagination-item {
+        min-width: 34px;
+        height: 34px;
+        font-size: 13px;
+        margin: 0 2px;
+     }
+     .pagination-item.arrow {
+         font-size: 11px;
+         padding: 0 10px;
+     }
+      .pagination-container {
+         gap: 3px;
+         margin: 20px 0;
+     }
+}

@@ -1,0 +1,190 @@
+/* src/components/reports/ReportCard.css */
+
+.report-card {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Apilar header, content, footer */
+    height: 100%; /* Intentar ocupar altura disponible en grid */
+    border-top: 3px solid transparent; /* Espacio para borde de color opcional */
+}
+
+.report-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    border-top-color: var(--accent-color); /* Resaltado hover */
+}
+
+.report-card-header {
+    padding: 15px 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center; /* Centrar verticalmente */
+    border-bottom: 1px solid var(--border-color);
+}
+
+.report-card-player-image {
+    width: 50px; /* Tamaño ajustado */
+    height: 50px;
+    border-radius: 50%; /* Circular */
+    overflow: hidden;
+    border: 2px solid var(--tertiary-bg); /* Borde sutil */
+    flex-shrink: 0;
+}
+
+.report-card-player-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.report-card-header-info {
+    flex: 1;
+    overflow: hidden; /* Para ellipsis */
+}
+
+.report-card-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--primary-text);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.report-card-player-name {
+    font-size: 13px;
+    color: var(--secondary-text);
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.report-card-player-name .icon-subtle {
+    margin-right: 6px;
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+.report-card-content {
+    padding: 15px 20px;
+    flex-grow: 1; /* Ocupar espacio disponible */
+    display: flex;
+    flex-direction: column; /* Apilar summary y tags */
+}
+
+.report-card-summary {
+    font-size: 13px;
+    color: var(--secondary-text);
+    line-height: 1.5;
+    margin-bottom: 15px;
+    /* Limitar número de líneas visibles */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Número de líneas a mostrar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 60px; /* Altura mínima para 3 líneas aprox */
+}
+
+.report-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto; /* Empujar tags hacia abajo si hay espacio */
+    padding-top: 10px; /* Espacio sobre los tags */
+}
+
+/* Estilos de tags reutilizados */
+.report-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 12px;
+    line-height: 1.3;
+}
+.report-tag.technical { background-color: var(--technical-tag-bg); color: var(--technical-tag-color); }
+.report-tag.tactical { background-color: var(--tactical-tag-bg); color: var(--tactical-tag-color); }
+.report-tag.physical { background-color: var(--physical-tag-bg); color: var(--physical-tag-color); }
+.report-tag.psychological { background-color: var(--psychological-tag-bg); color: var(--psychological-tag-color); }
+.report-tag.complete { background-color: var(--complete-tag-bg); color: var(--complete-tag-color); }
+.report-tag:not(.technical):not(.tactical):not(.physical):not(.psychological):not(.complete) { background-color: var(--tertiary-bg); color: var(--secondary-text); }
+.report-tag.more-tags { background-color: var(--border-color); color: var(--primary-text); }
+
+
+.report-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px; /* Padding del footer */
+    border-top: 1px solid var(--border-color);
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo ligeramente diferente */
+    flex-shrink: 0; /* No encoger el footer */
+}
+
+.report-card-metadata {
+    display: flex;
+    flex-direction: column; /* Apilar autor y fecha */
+    font-size: 12px;
+    color: var(--secondary-text);
+    gap: 2px; /* Espacio pequeño */
+    overflow: hidden; /* Para ellipsis si es necesario */
+    padding-right: 10px; /* Espacio antes de la valoración */
+}
+.report-card-author, .report-card-date {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.report-card-author .icon-subtle, .report-card-date .icon-subtle {
+    margin-right: 6px;
+    font-size: 11px;
+    opacity: 0.7;
+    width: 12px; /* Ancho fijo icono */
+    text-align: center;
+}
+.report-card-author span, .report-card-date span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.report-card-rating {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; /* Evitar que se encoja */
+}
+
+.report-stars {
+    color: var(--accent-color);
+    font-size: 14px;
+    letter-spacing: 1.5px; /* Espacio entre estrellas */
+    margin-right: 6px;
+}
+.report-stars .fa-star-half-alt { /* Ajuste para media estrella */
+    opacity: 0.9;
+}
+.report-stars .far.fa-star { /* Estrella vacía */
+    opacity: 0.4;
+}
+.report-stars .no-rating { /* Estilo para N/A */
+   font-size: 12px;
+   color: var(--secondary-text);
+   font-style: italic;
+}
+
+
+.report-numeric-rating {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-text);
+    min-width: 25px; /* Ancho mínimo */
+    text-align: right;
+}

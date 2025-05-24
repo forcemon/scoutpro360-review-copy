@@ -1,0 +1,74 @@
+/* src/components/dashboard/ActivityFeedItem.css */
+
+.activity-item {
+    display: flex;
+    align-items: center; /* Alinear verticalmente icono y texto */
+    padding: 15px 5px 15px 0; /* Padding vertical y a la derecha para scrollbar */
+    border-bottom: 1px solid var(--border-color); /* Línea divisoria */
+}
+
+/* Quitar el borde del último elemento en una lista */
+.activity-feed > .activity-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0; /* Sin padding extra al final */
+}
+
+.activity-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px; /* Espacio a la derecha del icono */
+    flex-shrink: 0; /* Evitar que el icono se encoja */
+    font-size: 16px; /* Tamaño del icono interno */
+}
+
+/* Colores de fondo y texto para los iconos según la clase */
+.activity-icon.blue {
+    background-color: rgba(46, 134, 222, 0.15); /* Azul claro */
+    color: #2e86de; /* Azul */
+}
+.activity-icon.green {
+    background-color: rgba(38, 222, 129, 0.15); /* Verde claro */
+    color: #26de81; /* Verde */
+}
+.activity-icon.purple {
+    background-color: rgba(155, 89, 182, 0.15); /* Púrpura claro */
+    color: #9b59b6; /* Púrpura */
+}
+.activity-icon.orange {
+    background-color: rgba(241, 196, 15, 0.15); /* Naranja claro */
+    color: #f1c40f; /* Naranja */
+}
+.activity-icon.red {
+    background-color: rgba(255, 71, 87, 0.15); /* Rojo claro */
+    color: #ff4757; /* Rojo */
+}
+
+/* Contenedor para el texto y la hora */
+.activity-content {
+    flex: 1; /* Ocupa el espacio restante */
+    overflow: hidden; /* Evita que el texto se desborde si es muy largo */
+}
+
+/* Estilo para el texto principal de la actividad */
+.activity-text {
+    font-size: 14px;
+    margin-bottom: 4px;
+    line-height: 1.4; /* Espaciado entre líneas */
+    color: var(--primary-text); /* Color de texto principal */
+}
+
+/* Estilo para el texto resaltado (ej. nombres) */
+.activity-text strong {
+    font-weight: 600; /* Más grueso */
+    color: var(--accent-color); /* Usar color de acento */
+}
+
+/* Estilo para la hora/fecha de la actividad */
+.activity-time {
+    font-size: 12px;
+    color: var(--secondary-text); /* Color de texto secundario */
+}

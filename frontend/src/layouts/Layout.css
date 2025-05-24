@@ -1,0 +1,42 @@
+/* frontend/src/layouts/Layout.css */
+
+/* Estilo base para el contenedor principal del layout */
+.layout {
+  display: flex; /* Usa flexbox para alinear Sidebar y main-content horizontalmente */
+  min-height: 100vh; /* Asegura que el layout ocupe al menos toda la altura de la ventana */
+  background-color: var(--background-color); /* Color de fondo general */
+  color: var(--primary-text); /* Color de texto principal */
+}
+
+/* Contenedor para el contenido principal (Topbar + page-content) */
+.main-content {
+  flex-grow: 1; /* Permite que esta área crezca y ocupe el espacio restante al lado del Sidebar */
+  display: flex; /* Usa flexbox para organizar TopBar y page-content */
+  flex-direction: column; /* Apila TopBar encima de page-content verticalmente */
+  background-color: var(--background-content); /* Color de fondo del área de contenido */
+  overflow-x: hidden; /* Previene el scroll horizontal accidental en el área principal */
+  /* Borde rojo de debugging eliminado */
+}
+
+/* Contenedor específico para el contenido de cada página (renderizado por <Outlet />) */
+.page-content {
+  padding: 2rem; /* Espaciado interno alrededor del contenido de la página */
+  flex-grow: 1; /* Permite que esta área se expanda verticalmente */
+  overflow-y: auto; /* Agrega scroll vertical si el contenido es largo */
+  min-height: 0; /* Ayuda a que overflow funcione en contenedores flex */
+  /* Borde azul de debugging eliminado */
+}
+
+/* Nota: Los estilos específicos para Sidebar y TopBar deberían estar en sus propios
+   archivos CSS o asegurar que no interfieran negativamente. */
+
+/* Estilo básico esperado para TopBar (ejemplo si no está en TopBar.css): */
+/*
+.top-bar {
+  height: 60px; // O la altura que tenga
+  flex-shrink: 0; // Importante para que no se encoja
+  background-color: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
+  width: 100%; // Asegura que ocupe el ancho
+}
+*/

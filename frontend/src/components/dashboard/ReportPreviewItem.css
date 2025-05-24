@@ -1,0 +1,139 @@
+/* src/components/dashboard/ReportPreviewItem.css */
+
+/* Contenedor principal para cada item de informe en la lista */
+.report-item {
+    display: flex;             /* Alinea thumbnail y contenido horizontalmente */
+    align-items: center;       /* Centra verticalmente los elementos */
+    padding: 12px 0;         /* Espaciado vertical, sin horizontal (lo maneja el contenedor) */
+    border-bottom: 1px solid var(--border-color); /* Línea separadora */
+    cursor: pointer;           /* Indica que es clickeable */
+    transition: background-color 0.2s ease; /* Transición suave al pasar el mouse */
+    gap: 15px; /* Espacio entre thumbnail y contenido */
+}
+
+/* Evita el borde inferior en el último elemento de la lista */
+.report-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0; /* Sin padding inferior si es el último */
+}
+ /* Evita el padding superior en el primer elemento de la lista */
+.report-item:first-child {
+     padding-top: 0;
+}
+
+/* Efecto hover */
+.report-item:hover {
+    background-color: rgba(255, 255, 255, 0.02); /* Resaltado muy sutil */
+}
+
+/* Miniatura del jugador */
+.report-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--border-radius); /* Bordes redondeados estándar */
+    background-color: var(--tertiary-bg); /* Fondo si la imagen no carga */
+    overflow: hidden;        /* Asegura que la imagen no se salga */
+    flex-shrink: 0;          /* Evita que la miniatura se encoja */
+    border: 1px solid var(--border-color); /* Borde sutil */
+}
+
+.report-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra el contenedor */
+}
+
+/* Contenedor para título, meta y tags */
+.report-content {
+    flex: 1;                 /* Ocupa el espacio restante */
+    overflow: hidden;        /* Necesario para text-overflow */
+    display: flex;
+    flex-direction: column; /* Apilar elementos verticalmente */
+    gap: 4px; /* Espacio pequeño entre título, meta y tags */
+}
+
+/* Título del informe */
+.report-title {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--primary-text); /* Color principal */
+    white-space: nowrap;       /* Evita que el texto se parta en varias líneas */
+    overflow: hidden;          /* Oculta el texto que no cabe */
+    text-overflow: ellipsis;   /* Muestra "..." si el texto es muy largo */
+    margin-bottom: 2px; /* Espacio mínimo bajo el título */
+}
+
+/* Contenedor para información meta (jugador y fecha) */
+.report-meta {
+    display: flex;
+    justify-content: space-between; /* Separa jugador y fecha */
+    align-items: center;
+    gap: 10px; /* Espacio entre jugador y fecha si se envuelven */
+    flex-wrap: wrap; /* Permitir que la fecha baje si no cabe */
+}
+
+/* Nombre/info del jugador */
+.report-player {
+    font-size: 13px;
+    color: var(--secondary-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Fecha del informe */
+.report-date {
+    font-size: 12px;
+    color: var(--secondary-text);
+    white-space: nowrap; /* Evitar que se parta */
+    flex-shrink: 0; /* No encoger la fecha */
+}
+
+/* Contenedor para los tags */
+.report-tags {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los tags bajen si no caben */
+    gap: 6px; /* Espacio entre tags */
+    margin-top: 5px; /* Espacio sobre los tags */
+}
+
+/* Estilo base para cada tag */
+.report-tag {
+    font-size: 11px;
+    font-weight: 500; /* Ligeramente más grueso */
+    padding: 3px 8px; /* Padding interno */
+    border-radius: 12px; /* Bordes redondeados */
+    line-height: 1.3; /* Ajustar altura de línea */
+}
+
+/* Colores específicos para los tags (usa las variables CSS) */
+.report-tag.technical {
+    background-color: var(--technical-tag-bg);
+    color: var(--technical-tag-color);
+}
+
+.report-tag.tactical {
+    background-color: var(--tactical-tag-bg);
+    color: var(--tactical-tag-color);
+}
+
+.report-tag.physical {
+    background-color: var(--physical-tag-bg);
+    color: var(--physical-tag-color);
+}
+
+.report-tag.psychological {
+    background-color: var(--psychological-tag-bg);
+    color: var(--psychological-tag-color);
+}
+
+.report-tag.complete {
+    background-color: var(--complete-tag-bg);
+    color: var(--complete-tag-color);
+}
+
+/* Estilo por defecto si no coincide ninguna clase específica */
+.report-tag:not(.technical):not(.tactical):not(.physical):not(.psychological):not(.complete) {
+     background-color: var(--tertiary-bg);
+     color: var(--secondary-text);
+}

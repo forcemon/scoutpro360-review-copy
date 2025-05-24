@@ -1,0 +1,137 @@
+/* src/components/reports/ReportListItem.css */
+
+.report-list-item {
+    display: grid; /* Usamos grid para alinear con cabecera */
+    /* Mismas columnas que definiremos en ReportList.css */
+    grid-template-columns: 60px 2.5fr 1.5fr 1fr 1fr 100px;
+    gap: 15px; /* Espacio entre columnas */
+    padding: 12px 20px; /* Padding vertical y horizontal */
+    border-bottom: 1px solid var(--border-color);
+    align-items: center; /* Centrar verticalmente */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-height: 65px; /* Altura mínima de fila */
+}
+
+.report-list-item:last-child {
+    border-bottom: none;
+}
+
+.report-list-item:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Estilos para celdas individuales */
+.list-report-cell {
+    font-size: 14px;
+    color: var(--primary-text);
+    overflow: hidden; /* Para ellipsis si es necesario */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.list-report-cell.cell-image {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrar imagen */
+}
+
+.list-report-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: var(--tertiary-bg);
+}
+
+.list-report-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.list-report-title {
+    font-weight: 500;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-report-player {
+    font-size: 12px;
+    color: var(--secondary-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-report-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+/* Estilos de tags reutilizados */
+.list-report-tag { font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 10px; line-height: 1.3; display: inline-block; }
+.list-report-tag.technical { background-color: var(--technical-tag-bg); color: var(--technical-tag-color); }
+.list-report-tag.tactical { background-color: var(--tactical-tag-bg); color: var(--tactical-tag-color); }
+.list-report-tag.physical { background-color: var(--physical-tag-bg); color: var(--physical-tag-color); }
+.list-report-tag.psychological { background-color: var(--psychological-tag-bg); color: var(--psychological-tag-color); }
+.list-report-tag.complete { background-color: var(--complete-tag-bg); color: var(--complete-tag-color); }
+.list-report-tag.potential { background-color: rgba(155, 89, 182, 0.2); color: #9b59b6; }
+.list-report-tag.default { background-color: var(--tertiary-bg); color: var(--secondary-text); }
+.list-report-tag:not(.technical):not(.tactical):not(.physical):not(.psychological):not(.complete):not(.potential) { background-color: var(--tertiary-bg); color: var(--secondary-text); }
+.list-report-tag.more-tags { background-color: var(--border-color); color: var(--primary-text); }
+
+/* Estilos para columnas de texto simple */
+.list-report-author,
+.list-report-date {
+    font-size: 13px;
+    color: var(--secondary-text);
+}
+
+/* Estilos para la valoración */
+.list-report-rating {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alinear a la derecha */
+    gap: 5px;
+    font-size: 13px;
+}
+
+.list-report-stars {
+    color: var(--accent-color);
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+ .list-report-stars .fa-star-half-alt { opacity: 0.9; }
+ .list-report-stars .far.fa-star { opacity: 0.4; }
+ .list-report-stars .no-rating { font-size: 11px; color: var(--secondary-text); font-style: italic; letter-spacing: normal; }
+
+/* Ocultar columnas en pantallas pequeñas */
+@media (max-width: 768px) {
+    .report-list-item {
+        grid-template-columns: 40px 2.5fr 1.5fr 100px; /* Ajustar columnas */
+        padding: 10px 15px;
+        gap: 10px;
+    }
+    /* Ocultar Autor y Fecha */
+    .list-report-cell.cell-author, .list-report-cell.cell-date {
+        display: none;
+    }
+}
+ @media (max-width: 576px) {
+     .report-list-item {
+         grid-template-columns: 40px 1fr 80px; /* Imagen, Título/Jugador/Tags, Rating */
+     }
+     /* Ocultar también Tags */
+      .list-report-cell.cell-tags {
+         display: none;
+     }
+      .list-report-title { font-size: 14px; }
+      .list-report-player { font-size: 11px; }
+      .list-report-rating { font-size: 12px; }
+      .list-report-stars { font-size: 12px; }
+ }

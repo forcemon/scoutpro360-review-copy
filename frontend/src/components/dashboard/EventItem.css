@@ -1,0 +1,102 @@
+/* src/components/dashboard/EventItem.css */
+
+.event-item {
+    display: flex; /* Alinea fecha y contenido horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    padding: 15px 5px 15px 0; /* Padding vertical y a la derecha */
+    border-bottom: 1px solid var(--border-color); /* Línea separadora */
+    cursor: pointer; /* Indica que es clickeable (si lo haces) */
+    transition: background-color 0.2s ease;
+    gap: 15px; /* Espacio entre fecha y contenido */
+}
+
+.event-item:last-child {
+    border-bottom: none; /* Sin borde para el último */
+    padding-bottom: 0;
+}
+.event-item:first-child {
+     padding-top: 0;
+}
+
+.event-item:hover {
+    background-color: rgba(255, 255, 255, 0.02); /* Efecto hover sutil */
+}
+
+.event-date {
+    width: 55px;
+    height: 55px;
+    background-color: var(--tertiary-bg);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* No encoger */
+    border: 1px solid var(--border-color);
+}
+
+.event-date-day {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent-color);
+    line-height: 1;
+}
+
+.event-date-month {
+    font-size: 11px;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 2px; /* Pequeño espacio */
+}
+
+.event-content {
+    flex: 1; /* Ocupa el espacio restante */
+    overflow: hidden; /* Para ellipsis si es necesario */
+}
+
+.event-title {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: var(--primary-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-details {
+    font-size: 13px;
+    color: var(--secondary-text);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Permitir que el tag baje si no cabe */
+    gap: 5px 15px; /* Espacio vertical y horizontal entre elementos */
+}
+
+.event-location {
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+}
+
+.event-location-icon { /* Clase para el icono FontAwesome */
+    margin-right: 5px;
+    font-size: 12px;
+    color: var(--accent-color); /* Icono con color de acento */
+}
+
+.event-type {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 12px;
+    line-height: 1.4;
+    /* Quitado margin-left, se maneja con gap en .event-details */
+}
+
+/* Colores para los tipos de evento */
+.event-type.match { background-color: rgba(46, 134, 222, 0.2); color: #2e86de; }
+.event-type.tournament { background-color: rgba(241, 196, 15, 0.2); color: #f1c40f; }
+.event-type.scouting { background-color: rgba(155, 89, 182, 0.2); color: #9b59b6; }
+.event-type.meeting { background-color: rgba(38, 222, 129, 0.2); color: #26de81; }

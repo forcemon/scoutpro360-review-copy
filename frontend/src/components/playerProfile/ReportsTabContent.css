@@ -1,0 +1,80 @@
+/* src/components/playerProfile/ReportsTabContent.css */
+
+.reports-tab-card {
+    /* Hereda .card */
+}
+
+.reports-tab-card .card-title.reports-title {
+    /* Hereda .card-title */
+    /* Estilos adicionales si son necesarios */
+}
+
+.reports-tab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Para que el botón baje si no cabe */
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.reports-tab-controls {
+    /* Placeholder para futuros filtros */
+    font-size: 13px;
+    color: var(--secondary-text);
+}
+
+.new-report-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px; /* Botón un poco más pequeño */
+    background-color: var(--accent-color);
+    color: var(--primary-bg); /* Texto oscuro */
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.new-report-button:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 2px 5px rgba(255, 193, 7, 0.2);
+}
+.new-report-button svg { /* Estilo icono */
+    font-size: 12px;
+}
+
+.reports-tab-content-area {
+    /* Contenedor para el grid/lista */
+}
+
+/* Reutilizar estilos de .reports-grid de MyReportsPage.css */
+/* Si no es global, copiar aquí: */
+.reports-tab-content-area .reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding-top: 5px; /* Pequeño espacio arriba */
+}
+
+/* Estilo para cuando no hay informes */
+.no-reports-info {
+    font-size: 14px;
+    color: var(--secondary-text);
+    text-align: center;
+    padding: 40px 20px;
+    font-style: italic;
+    background-color: var(--tertiary-bg); /* Fondo sutil */
+    border-radius: var(--border-radius);
+}
+
+/* Ajuste para las ReportCard dentro de esta pestaña si es necesario */
+.reports-tab-content-area .report-card {
+     /* Por ejemplo, quitar sombra si ya está dentro de un card */
+     /* box-shadow: none; */
+}

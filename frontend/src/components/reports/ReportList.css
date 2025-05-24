@@ -1,0 +1,65 @@
+/* src/components/reports/ReportList.css */
+
+.reports-list-container {
+    padding: 0; /* Quitar padding del card si la tabla lo maneja */
+    overflow: hidden; /* Evitar overflow general, el scroll estará en content-area */
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+}
+
+.list-header {
+    display: grid;
+    /* Mismas columnas que ReportListItem.js */
+    grid-template-columns: 60px 2.5fr 1.5fr 1fr 1fr 100px;
+    gap: 15px; /* Espacio entre columnas */
+    padding: 12px 20px; /* Padding */
+    background-color: var(--tertiary-bg); /* Fondo cabecera */
+    border-bottom: 2px solid var(--border-color); /* Borde inferior grueso */
+}
+
+.list-header-item {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Alinear cabeceras específicas */
+.list-header-item.h-rating {
+    text-align: right;
+    padding-right: 5px; /* Ajustar padding si es necesario */
+}
+
+.list-body {
+  /* Contenedor para los items, no necesita mucho estilo si ReportListItem tiene bordes */
+}
+
+ /* Responsive: Ocultar las mismas columnas que en ReportListItem */
+ @media (max-width: 768px) {
+    .list-header {
+         grid-template-columns: 40px 2.5fr 1.5fr 100px; /* Mismas columnas que item */
+         padding: 10px 15px;
+         gap: 10px;
+     }
+     .list-header-item.h-author, .list-header-item.h-date {
+         display: none;
+     }
+ }
+
+  @media (max-width: 576px) {
+     .list-header {
+          grid-template-columns: 40px 1fr 80px; /* Mismas columnas que item */
+     }
+      .list-header-item.h-tags { /* Ocultar también tags */
+         display: none;
+     }
+     .list-header-item.h-rating {
+         padding-right: 0;
+         text-align: center; /* Centrar rating en móvil */
+     }
+ }

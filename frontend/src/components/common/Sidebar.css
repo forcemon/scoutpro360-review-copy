@@ -1,0 +1,172 @@
+/* src/components/common/Sidebar.css */
+
+.sidebar {
+    width: 260px;
+    min-width: 260px; /* Evita que se encoja demasiado */
+    background-color: var(--sidebar-bg);
+    height: 100vh; /* Ocupa toda la altura */
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+    transition: width 0.3s ease, min-width 0.3s ease; /* Transición suave para colapso */
+}
+
+/* Logo y Subtítulo */
+.logo-container {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0; /* Evita que el logo se encoja */
+    text-align: center;
+}
+
+.logo {
+    color: var(--primary-text); /* Color base del logo */
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Evita que el texto del logo se rompa */
+}
+
+.logo span.accent {
+    color: var(--accent-color); /* Color de acento */
+}
+
+/* Contenedor del Menú (Scrollable) */
+.sidebar-menu {
+     flex-grow: 1; /* Ocupa el espacio restante */
+     overflow-y: auto; /* Scroll vertical si el menú es largo */
+     overflow-x: hidden; /* Ocultar scroll horizontal */
+     scrollbar-width: thin; /* Estilo scroll Firefox */
+     scrollbar-color: var(--tertiary-bg) var(--sidebar-bg); /* Colores scroll Firefox */
+}
+/* Estilo scroll Webkit (Chrome, Safari, Edge) */
+.sidebar-menu::-webkit-scrollbar { width: 6px; }
+.sidebar-menu::-webkit-scrollbar-track { background: var(--sidebar-bg); }
+.sidebar-menu::-webkit-scrollbar-thumb { background-color: var(--tertiary-bg); border-radius: 3px; }
+
+/* Secciones y Títulos del Menú */
+.menu-section {
+    padding: 15px 0; /* Espacio vertical entre secciones */
+}
+
+.menu-title {
+    color: var(--secondary-text);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 20px; /* Padding horizontal para el título */
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.3s ease, height 0.3s ease, padding 0.3s ease, margin 0.3s ease; /* Transiciones para colapso */
+}
+
+/* Estilos base para Items del Menú (aplican a NavLink y button) */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: var(--secondary-text);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-left-color 0.2s ease-in-out, padding-left 0.2s ease-in-out; /* Transiciones suaves */
+    cursor: pointer;
+    text-decoration: none; /* Asegurar que no haya subrayado */
+    font-size: 14px;
+    white-space: nowrap; /* Evitar que el texto se rompa */
+    border-left: 3px solid transparent; /* Borde izquierdo transparente por defecto */
+    width: 100%; /* Asegurar que ocupen todo el ancho disponible */
+}
+
+/* Estilos específicos para botones para que parezcan enlaces */
+button.menu-item {
+    background: none;
+    border: none; /* Quitar borde por defecto del botón */
+    text-align: left; /* Alinear texto a la izquierda */
+    font-family: inherit; /* Heredar fuente */
+}
+
+/* Estilos Hover para todos los items */
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--primary-text); /* Texto más claro al pasar el mouse */
+}
+
+/* Estilos para el item ACTIVO (aplicado por NavLink) */
+/* NavLink añade la clase .active por defecto */
+.menu-item.active {
+    background-color: var(--sidebar-active);
+    color: var(--accent-color); /* Color de acento */
+    font-weight: 500; /* Ligeramente más grueso */
+    border-left-color: var(--accent-color); /* Borde visible */
+    padding-left: 17px; /* Compensar el borde para alinear texto */
+}
+
+/* Estilos para el icono (ahora es el componente FontAwesomeIcon con clase .menu-icon) */
+.menu-item .menu-icon {
+    margin-right: 12px; /* Espacio entre icono y texto */
+    /* width: 20px; -> No es necesario con fixedWidth prop */
+    text-align: center;
+    font-size: 16px; /* Tamaño del icono */
+    transition: margin 0.3s ease; /* Transición para colapso */
+    flex-shrink: 0; /* Evitar que el icono se encoja */
+    vertical-align: middle; /* Mejor alineación vertical con el texto */
+}
+
+
+/* --- Estilos Responsivos para Sidebar Colapsado --- */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px; /* Ancho colapsado */
+        min-width: 70px;
+    }
+
+    .logo-container {
+        padding: 15px 5px; /* Menos padding */
+    }
+
+    .logo {
+        font-size: 16px; /* Logo más pequeño */
+        /* Ocultar texto si se prefiere */
+        /* .logo span { display: none; } */
+        /* .logo::before { content: "\f135"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 24px; color: var(--accent-color); } */
+    }
+
+    .menu-title {
+        /* Ocultar títulos en modo colapsado */
+        opacity: 0;
+        height: 0;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .menu-item {
+        padding: 15px 0; /* Padding vertical, sin horizontal */
+        justify-content: center; /* Centrar icono */
+        border-left-width: 0; /* Ocultar borde izquierdo por defecto*/
+    }
+
+    /* Ocultar el texto de los items */
+    .menu-item span {
+        display: none;
+    }
+
+    /* Ajustar icono */
+    .menu-item .menu-icon {
+        margin-right: 0; /* Sin margen si no hay texto */
+        font-size: 18px; /* Iconos un poco más grandes */
+    }
+
+    /* Ajustar item activo en modo colapsado */
+    .menu-item.active {
+        padding-left: 0; /* Resetear padding */
+         border-left: 3px solid var(--accent-color); /* Mantener borde como indicador */
+    }
+    /* Asegurar que el botón activo se vea igual */
+     button.menu-item.active {
+         padding-left: 0;
+         border-left: 3px solid var(--accent-color);
+     }
+}

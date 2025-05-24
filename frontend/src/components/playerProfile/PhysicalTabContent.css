@@ -1,0 +1,163 @@
+/* frontend/src/components/playerProfile/PhysicalTabContent.css */
+
+/* Estilo base para el contenedor de la pestaña (opcional, si no usas .card) */
+.physical-tab-content {
+    /* padding: 20px; Si no se usa .card */
+  }
+  
+  /* Estilo para la tarjeta contenedora (si se usa la clase .card) */
+  .physical-tab-content.card {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px; /* Opcional, si hay más contenido debajo */
+    box-shadow: var(--card-shadow);
+  }
+  
+  /* Estilo para el título de la tarjeta (si se usa .card) */
+  .physical-tab-content .card-title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent-color); /* O --primary-text si prefieres */
+    margin-bottom: 25px; /* Más espacio antes de la cuadrícula */
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .physical-tab-content .card-title svg { /* Estilo para el icono FontAwesome */
+    margin-right: 10px;
+  }
+  
+  
+  /* Cuadrícula de dos columnas */
+  .physical-tab-content .content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Columna izquierda más ancha */
+    gap: 30px; /* Espacio entre columnas */
+  }
+  
+  /* Estilos para las columnas (opcional si no necesitan nada específico) */
+  .physical-tab-content .main-column {
+    /* Estilos específicos para la columna principal si son necesarios */
+  }
+  
+  .physical-tab-content .side-column {
+    /* Estilos específicos para la columna lateral si son necesarios */
+  }
+  
+  /* Encabezado de sección dentro de las columnas */
+  .physical-tab-content .section-header {
+    display: flex;
+    align-items: center;
+    font-size: 16px; /* Ligeramente más grande */
+    font-weight: 600;
+    color: var(--accent-color); /* Color de acento */
+    margin-top: 25px; /* Espacio arriba */
+    margin-bottom: 15px; /* Espacio abajo antes de los items */
+    padding-bottom: 5px;
+    /* border-bottom: 1px solid var(--border-color); Opcional */
+  }
+  
+  .physical-tab-content .section-header:first-child {
+    margin-top: 0; /* Sin margen superior para el primer header de cada columna */
+  }
+  
+  
+  .physical-tab-content .section-header svg { /* Estilo para icono FontAwesome */
+    margin-right: 8px;
+    font-size: 14px; /* Tamaño del icono */
+    width: 16px; /* Ancho fijo para alineación */
+    text-align: center;
+  }
+  
+  /* Estilo para cada item de atributo (copiado/adaptado del mockup) */
+  .physical-tab-content .attribute-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px; /* Espacio entre items */
+    font-size: 14px;
+  }
+  
+  /* Icono opcional al inicio del item */
+  .physical-tab-content .attribute-icon {
+    width: 16px;
+    margin-right: 8px;
+    color: var(--secondary-text);
+    text-align: center;
+  }
+  
+  .physical-tab-content .attribute-name {
+    color: var(--secondary-text);
+    flex-basis: 45%; /* Ajusta según necesites para el nombre */
+    flex-shrink: 0;
+    padding-right: 10px; /* Espacio antes de la barra */
+    white-space: nowrap; /* Evita que el nombre se parta */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Añade '...' si el nombre es muy largo */
+  }
+  
+  .physical-tab-content .attribute-bar {
+    flex-grow: 1; /* Ocupa el espacio restante */
+    height: 8px; /* Grosor de la barra */
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo de la barra */
+    border-radius: 4px;
+    overflow: hidden; /* Asegura que el relleno no se salga */
+    margin: 0 10px; /* Espacio alrededor de la barra */
+  }
+  
+  .physical-tab-content .attribute-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease-out; /* Animación suave */
+  }
+  
+  /* Color específico para atributos físicos */
+  .physical-tab-content .attribute-item.physical .attribute-fill {
+    background-color: var(--physical-color); /* Usa la variable CSS definida */
+  }
+  
+  .physical-tab-content .attribute-value {
+    font-weight: 600;
+    color: var(--primary-text); /* O usa var(--physical-color) si prefieres */
+    min-width: 65px; /* Ancho mínimo para alinear valores */
+    text-align: right;
+  }
+  
+  /* --- Responsive Adjustments --- */
+  @media (max-width: 992px) { /* Ajusta breakpoint si es necesario */
+    .physical-tab-content .content-grid {
+      grid-template-columns: 1fr; /* Apila las columnas en pantallas medianas/pequeñas */
+      gap: 0px; /* Quita el gap entre columnas al apilar */
+    }
+    .physical-tab-content .side-column .section-header {
+       margin-top: 30px; /* Añade más espacio arriba de las secciones de la segunda columna cuando se apilan */
+    }
+     .physical-tab-content .attribute-name {
+       flex-basis: 40%; /* Reduce un poco el espacio del nombre */
+     }
+  }
+  
+  @media (max-width: 576px) {
+     .physical-tab-content .attribute-name {
+       flex-basis: 120px; /* O un ancho fijo */
+       flex-shrink: 0;
+       white-space: normal; /* Permite que se parta */
+       overflow: visible;
+       text-overflow: clip;
+     }
+      .physical-tab-content .attribute-value {
+       min-width: 50px; /* Reduce ancho mínimo del valor */
+     }
+     .physical-tab-content .card {
+       padding: 15px; /* Menos padding en tarjetas */
+     }
+     .physical-tab-content .section-header {
+       font-size: 15px;
+     }
+      .physical-tab-content .attribute-item {
+       font-size: 13px;
+     }
+  }
+  

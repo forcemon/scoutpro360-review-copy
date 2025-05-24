@@ -1,0 +1,95 @@
+/* src/components/dashboard/WelcomeHeader.css */
+
+.welcome-section {
+    display: flex;
+    justify-content: space-between; /* Separa texto y botones */
+    align-items: center; /* Alinea verticalmente */
+    flex-wrap: wrap; /* Permite que los botones bajen en pantallas pequeñas */
+    gap: 15px 20px; /* Espacio vertical y horizontal si se envuelven */
+    margin-bottom: 30px; /* Espacio debajo de la sección */
+    padding: 10px 0; /* Padding vertical ligero opcional */
+}
+
+.welcome-text h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--primary-text);
+    line-height: 1.2;
+}
+
+.welcome-text p {
+    color: var(--secondary-text);
+    font-size: 14px;
+    text-transform: capitalize; /* Poner primera letra en mayúscula */
+}
+
+.welcome-actions {
+    display: flex; /* Alinea botones horizontalmente */
+    gap: 15px; /* Espacio entre botones */
+}
+
+/* Estilo base para los botones de acción */
+.action-button {
+    display: flex;
+    align-items: center; /* Centra icono y texto */
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 18px; /* Padding interno */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    border: none; /* Sin borde por defecto */
+    white-space: nowrap; /* Evita que el texto se parta */
+    font-family: inherit; /* Heredar fuente */
+}
+
+/* Estilo del botón primario (amarillo) */
+.action-button.primary {
+    background-color: var(--accent-color);
+    color: #1a1d24; /* Texto oscuro para contraste */
+}
+
+.action-button.primary:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.25); /* Sombra del color de acento */
+    transform: translateY(-2px); /* Ligera elevación */
+}
+
+/* Estilo del botón secundario (gris oscuro) */
+.action-button.secondary {
+    background-color: var(--tertiary-bg);
+    color: var(--primary-text);
+    border: 1px solid var(--border-color); /* Borde sutil */
+}
+
+.action-button.secondary:hover {
+    background-color: #3a414e; /* Ligeramente más claro/diferente */
+    border-color: var(--secondary-text);
+    transform: translateY(-2px);
+}
+
+/* Estilo para el icono FontAwesome dentro del botón */
+.action-button .action-button-icon { /* Clase específica para el icono */
+    margin-right: 8px; /* Espacio entre icono y texto */
+    font-size: 1em; /* Tamaño relativo al texto del botón */
+}
+
+/* Ajustes responsivos */
+@media (max-width: 576px) {
+    .welcome-section {
+        align-items: flex-start; /* Alinear al inicio en móvil */
+    }
+    .welcome-actions {
+        width: 100%;
+        flex-direction: column; /* Apilar botones */
+        gap: 10px;
+    }
+    .action-button {
+        width: 100%;
+        justify-content: center; /* Centrar contenido del botón apilado */
+    }
+     .welcome-text h1 {
+        font-size: 20px; /* Título más pequeño */
+     }
+}

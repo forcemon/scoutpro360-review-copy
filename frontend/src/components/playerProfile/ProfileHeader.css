@@ -1,0 +1,116 @@
+/* src/components/playerProfile/ProfileHeader.css */
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    /* background: linear-gradient(135deg, var(--tertiary-bg) 0%, var(--secondary-bg) 100%); */
+    background-color: var(--secondary-bg); /* Simplificado */
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+    flex-wrap: wrap; /* Permitir envolver en pantallas pequeñas */
+    gap: 20px; /* Espacio entre elementos si envuelven */
+}
+
+.profile-header .player-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-color);
+    margin-right: 25px; /* Espacio a la derecha */
+    flex-shrink: 0; /* No encoger la foto */
+    background-color: var(--tertiary-bg); /* Fondo mientras carga */
+}
+
+.player-info {
+    flex-grow: 1; /* Ocupar espacio disponible */
+    min-width: 250px; /* Ancho mínimo para evitar colapso */
+}
+
+.player-info h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--primary-text);
+    line-height: 1.2;
+}
+
+.player-info .position {
+    font-size: 16px;
+    color: var(--accent-color); /* Resaltar posición */
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.player-info p {
+    font-size: 14px;
+    color: var(--secondary-text);
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.player-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.player-tag {
+    background-color: var(--accent-light);
+    color: var(--accent-color);
+    font-size: 11px; /* Más pequeño */
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 15px; /* Más redondeado */
+    white-space: nowrap;
+}
+
+.player-meta {
+    text-align: right;
+    flex-shrink: 0; /* No encoger */
+    margin-left: auto; /* Empujar a la derecha si hay espacio */
+    align-self: flex-start; /* Alinear arriba */
+    min-width: 120px; /* Ancho mínimo */
+}
+
+.player-meta .market-value {
+    font-size: 22px; /* Ligeramente más pequeño */
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 5px;
+}
+
+.player-meta .contract-info {
+    font-size: 13px; /* Ligeramente más pequeño */
+    color: var(--secondary-text);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column; /* Apilar en móvil */
+        align-items: flex-start; /* Alinear a la izquierda */
+        padding: 20px;
+    }
+    .profile-header .player-photo {
+        margin-right: 0; /* Quitar margen derecho */
+        margin-bottom: 15px; /* Añadir margen inferior */
+        align-self: center; /* Centrar foto */
+        width: 120px; /* Más grande en móvil */
+        height: 120px;
+    }
+    .player-meta {
+        margin-left: 0; /* Quitar margen izquierdo */
+        margin-top: 15px; /* Añadir margen superior */
+        text-align: left; /* Alinear a la izquierda */
+        width: 100%; /* Ocupar todo el ancho */
+        padding-top: 15px;
+        border-top: 1px solid var(--border-color);
+    }
+    .player-info h1 { font-size: 22px; }
+    .player-info .position { font-size: 15px; }
+    .player-info p { font-size: 13px; }
+}

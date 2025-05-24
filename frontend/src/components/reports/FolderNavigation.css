@@ -1,0 +1,87 @@
+/* src/components/reports/FolderNavigation.css */
+
+.folders-section {
+    margin-bottom: 25px;
+    padding: 20px; /* Padding interno */
+    background-color: var(--secondary-bg); /* Fondo de tarjeta */
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+}
+
+.folders-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    color: var(--primary-text); /* Título más prominente */
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.folders-title svg { /* Estilo para FontAwesomeIcon */
+    margin-right: 10px;
+    color: var(--accent-color);
+    font-size: 15px; /* Ajustar tamaño */
+}
+
+.folders-list {
+    display: flex;
+    flex-wrap: wrap; /* Permitir que los botones bajen */
+    gap: 12px; /* Espacio entre botones de carpeta */
+}
+
+.folder-item {
+    padding: 8px 18px; /* Más padding horizontal */
+    background-color: var(--tertiary-bg);
+    border-radius: 20px; /* Bordes redondeados tipo "pill" */
+    font-size: 13px;
+    font-weight: 500; /* Ligeramente más grueso */
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent; /* Borde transparente inicial */
+}
+
+.folder-item .folder-icon { /* Estilo para el icono dentro del botón */
+    margin-right: 8px;
+    font-size: 12px; /* Tamaño del icono interno */
+    opacity: 0.7;
+}
+
+.folder-item:hover {
+    background-color: #3a414e; /* Fondo un poco más claro */
+    color: var(--primary-text);
+    border-color: var(--border-color);
+}
+
+/* Estilo para la carpeta activa */
+.folder-item.active {
+    background-color: var(--accent-light);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    font-weight: 600;
+}
+.folder-item.active .folder-icon {
+   opacity: 1;
+}
+
+
+/* Estilo específico para el botón "Nueva Carpeta" */
+.folder-item.new-folder {
+    border: 1px dashed var(--border-color);
+    background-color: transparent;
+    color: var(--secondary-text);
+}
+
+.folder-item.new-folder:hover {
+    border-color: var(--accent-color);
+    background-color: var(--tertiary-bg); /* Fondo sutil al pasar */
+    color: var(--accent-color);
+}
+
+.folder-item.new-folder svg {
+    font-size: 12px; /* Ajustar si es necesario */
+}

@@ -1,0 +1,133 @@
+/* src/components/reports/ReportFiltersPanel.css */
+
+.filter-section.reports-filter {
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    /* Hereda estilos de .card */
+}
+
+.reports-filter-grid {
+    display: grid;
+    /* CORRECCIÓN: Usar auto-fit y ajustar minmax */
+    /* auto-fit: llena la fila y estira items si hay espacio */
+    /* minmax(200px, 1fr): cada item tendrá al menos 200px, máximo 1 fracción */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px 25px; /* Espacio vertical y horizontal */
+    margin-bottom: 20px; /* Espacio antes de los botones */
+}
+
+.filter-group {
+    /* Asegurar que el grupo no fuerce un tamaño mínimo problemático */
+    min-width: 0;
+}
+
+.filter-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--secondary-text);
+    margin-bottom: 8px;
+}
+
+.filter-input,
+.filter-select,
+.filter-range-input {
+    width: 100%;
+    background-color: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 10px 12px;
+    color: var(--primary-text);
+    font-size: 14px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    min-height: 40px; /* Altura mínima consistente */
+}
+
+.filter-input:focus,
+.filter-select:focus,
+.filter-range-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background-color: var(--primary-bg);
+}
+
+.filter-input::placeholder,
+.filter-range-input::placeholder {
+    color: var(--secondary-text);
+    opacity: 0.7;
+}
+
+.filter-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a0a0a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 35px;
+    cursor: pointer;
+}
+ .filter-select option { background-color: var(--tertiary-bg); color: var(--primary-text); }
+
+.filter-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-range-input {
+    text-align: center;
+    /* Intenta darle un tamaño base flexible pero con mínimo */
+    min-width: 100px; /* Mínimo para que quepa la fecha */
+    flex: 1; /* Permitir que crezca si hay espacio */
+}
+.filter-range-input[type="date"] {
+    color-scheme: dark;
+    min-height: 40px;
+    padding: 8px; /* Ajustar padding si es necesario */
+}
+.filter-range-input[type=number]::-webkit-outer-spin-button,
+.filter-range-input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.filter-range-input[type=number] { -moz-appearance: textfield; }
+
+.filter-range-separator {
+    color: var(--secondary-text);
+    font-size: 14px;
+    flex-shrink: 0; /* Evitar que se encoja */
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 15px; /* Reducido ligeramente */
+    border-top: 1px solid var(--border-color);
+}
+
+.filter-button {
+    padding: 9px 18px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+}
+.filter-button svg { margin-right: 8px; font-size: 13px; }
+
+.filter-button.apply { background-color: var(--accent-color); color: #1a1d24; }
+.filter-button.apply:hover { background-color: var(--accent-hover); box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2); }
+.filter-button.reset { background-color: var(--tertiary-bg); color: var(--secondary-text); border: 1px solid var(--tertiary-bg); }
+.filter-button.reset:hover { border-color: var(--border-color); color: var(--primary-text); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .reports-filter-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+}
+@media (max-width: 576px) {
+    .reports-filter-grid { grid-template-columns: 1fr; } /* Apilar filtros */
+    .filter-actions { flex-direction: column; gap: 10px; }
+    .filter-button { width: 100%; justify-content: center; }
+}

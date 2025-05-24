@@ -1,0 +1,150 @@
+/* src/pages/DashboardPage.css */
+
+/* Estilos generales para la página del dashboard (opcional) */
+.dashboard-page {
+    /* Puedes añadir un padding global aquí si no lo gestionas en .content-area */
+    /* padding: 20px; */
+    height: 100%; /* Asegura que ocupe el espacio si es necesario */
+}
+
+/* Cuadrícula para las tarjetas de resumen superior (StatSummaryCard) */
+.stats-summary-grid {
+    display: grid;
+    /* Crea columnas que se ajustan automáticamente:
+       - minmax(230px, 1fr): Cada columna tendrá al menos 230px,
+         pero puede crecer para ocupar el espacio disponible (1fr). */
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px; /* Espacio entre las tarjetas de resumen */
+    margin-bottom: 30px; /* Espacio antes del contenido principal */
+}
+
+/* Cuadrícula principal del contenido del Dashboard (2 columnas) */
+.dashboard-content-grid {
+    display: grid;
+    /* Define 2 columnas: la principal ocupa 2 partes, la lateral 1 parte */
+    grid-template-columns: 2fr 1fr;
+    gap: 25px; /* Espacio entre la columna principal y la lateral */
+}
+
+/* Contenedor para la columna principal (izquierda) */
+.dashboard-main-column {
+    display: flex;
+    flex-direction: column; /* Apila las tarjetas verticalmente */
+    gap: 25px; /* Espacio entre las tarjetas dentro de esta columna */
+    min-width: 0; /* Ayuda a prevenir overflow en flex/grid items */
+}
+
+/* Contenedor para la columna lateral (derecha) */
+.dashboard-sidebar-column {
+    display: flex;
+    flex-direction: column; /* Apila las tarjetas verticalmente */
+    gap: 25px; /* Espacio entre las tarjetas dentro de esta columna */
+    min-width: 0; /* Ayuda a prevenir overflow en flex/grid items */
+}
+
+/* Estilo para la cuadrícula de jugadores destacados */
+.players-grid {
+    display: grid;
+    /* Ajusta las columnas según el espacio disponible */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* Estilos para la lista de informes recientes en el dashboard */
+.dashboard-reports-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Espacio pequeño entre items */
+}
+
+/* Estilo para items de informe dentro del dashboard */
+/* (La mayoría de estilos vienen de ReportPreviewItem.css) */
+.dashboard-reports-list .report-item {
+     /* Hereda estilos de ReportPreviewItem.css */
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: 5px;
+}
+
+.dashboard-reports-list .report-item:last-child {
+    border-bottom: none; /* Quitar el último borde */
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+
+/* Estilos para feeds con scroll dentro de tarjetas */
+.activity-feed, .events-list {
+    max-height: 450px; /* Altura máxima antes de mostrar scroll */
+    overflow-y: auto; /* Scroll vertical si el contenido excede la altura */
+    padding-right: 5px; /* Espacio para no pegar el contenido a la barra de scroll */
+    /* Estilización de la barra de scroll (Opcional pero recomendado) */
+    scrollbar-width: thin; /* Para Firefox */
+    scrollbar-color: var(--border-color) var(--secondary-bg); /* Color del thumb y track */
+}
+/* Estilización de la barra de scroll para Webkit (Chrome, Safari, Edge) */
+.activity-feed::-webkit-scrollbar,
+.events-list::-webkit-scrollbar {
+    width: 6px; /* Ancho de la barra */
+}
+.activity-feed::-webkit-scrollbar-thumb,
+.events-list::-webkit-scrollbar-thumb {
+    background-color: var(--border-color); /* Color de la barra deslizante */
+    border-radius: 3px;
+}
+.activity-feed::-webkit-scrollbar-track,
+.events-list::-webkit-scrollbar-track {
+    background-color: var(--secondary-bg); /* Color del fondo de la pista */
+    border-radius: 3px;
+}
+
+/* Cuadrícula para los botones de Acciones Rápidas */
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 15px; /* Espacio entre botones */
+}
+
+/* --- Media Queries para Responsividad --- */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1100px) {
+    .dashboard-content-grid {
+        grid-template-columns: 1fr; /* Apilar columnas */
+    }
+    /* Opcional: Ajustar el número de columnas en stats si se ve muy apretado */
+    .stats-summary-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+/* Móviles grandes y tablets pequeñas */
+@media (max-width: 768px) {
+    .stats-summary-grid {
+         /* Forzar 2 columnas o ajustar minmax */
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .players-grid {
+        /* Forzar 1 o 2 columnas */
+         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+    .quick-actions-grid {
+        grid-template-columns: 1fr 1fr; /* Mantener 2 columnas si caben */
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 576px) {
+    .stats-summary-grid {
+        grid-template-columns: 1fr; /* Apilar tarjetas de stats */
+    }
+     .players-grid {
+        grid-template-columns: 1fr; /* Apilar tarjetas de jugadores */
+    }
+    .quick-actions-grid {
+        grid-template-columns: 1fr; /* Apilar acciones rápidas */
+    }
+    .dashboard-content-grid {
+        gap: 20px; /* Reducir espacio entre secciones apiladas */
+    }
+}
