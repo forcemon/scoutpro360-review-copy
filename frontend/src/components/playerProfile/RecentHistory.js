@@ -1,7 +1,7 @@
 // src/components/playerProfile/RecentHistory.js
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom'; // Opcional: para enlace a historial completo
+// import { Link } from 'react-router-dom'; // Link no se usa, se elimina la importación
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHistory } from '@fortawesome/free-solid-svg-icons';
 import './RecentHistory.css'; // Crear este archivo CSS después
@@ -18,7 +18,7 @@ function RecentHistory({ playerData }) {
     // El historial completo de clubes requeriría un modelo relacionado en el backend
     // (ej: PlayerClubHistory) que no existe actualmente.
     // Usamos el club actual de playerData y añadimos otros de ejemplo.
-    const currentClub = playerData?.current_club || 'Club Actual Desc.';
+    const currentClub = playerData?.team?.name || 'Club Actual Desc.'; // Corregido para acceder a team.name
     const placeholderHistory = [
         {
             name: currentClub,
@@ -91,7 +91,8 @@ function RecentHistory({ playerData }) {
 
 RecentHistory.propTypes = {
     playerData: PropTypes.shape({
-        current_club: PropTypes.string,
+        // current_club: PropTypes.string, // El modelo Player ahora tiene 'team'
+        team: PropTypes.shape({ name: PropTypes.string }), // Acceder a través de team
         // Se esperaría algo como:
         // club_history: PropTypes.arrayOf(PropTypes.shape({
         //     name: PropTypes.string,
