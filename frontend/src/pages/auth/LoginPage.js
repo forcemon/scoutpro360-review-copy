@@ -9,7 +9,7 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const auth = useAuth();
+    const auth = useAuth(); // <--- Usa el contexto de autenticación
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -20,12 +20,12 @@ function LoginPage() {
         setError('');
         setLoading(true);
         try {
-            await auth.login(username, password);
+            await auth.login(username, password); // <--- Llama al login del AuthContext
             navigate(from, { replace: true });
         } catch (err) {
-            const errorMessage = 
-                err.response?.data?.non_field_errors?.[0] || 
-                err.response?.data?.detail || 
+            const errorMessage =
+                err.response?.data?.non_field_errors?.[0] ||
+                err.response?.data?.detail ||
                 (err.response?.status === 400 ? 'Credenciales inválidas. Por favor, inténtalo de nuevo.' : 'Error al iniciar sesión.');
             setError(errorMessage);
             console.error("Error en la página de login:", err.response?.data || err.message || err);
@@ -34,6 +34,7 @@ function LoginPage() {
         }
     };
 
+    // ... (resto del JSX)
     return (
         <div className="login-page-container">
             <div className="login-card">

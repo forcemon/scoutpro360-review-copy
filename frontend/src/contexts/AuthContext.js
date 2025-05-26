@@ -17,8 +17,8 @@ export const AuthProvider = ({ children }) => {
                 try {
                     // Endpoint para obtener el UserProfile del usuario autenticado
                     const response = await apiClient.get('userprofiles/me/'); // Asegúrate que la URL base en api.js termine en /api/
-                    setUser(response.data); 
-                    setToken(storedToken); 
+                    setUser(response.data);
+                    setToken(storedToken);
                 } catch (error) {
                     console.error("Error al verificar el token o token expirado:", error.response?.data || error.message);
                     localStorage.removeItem('authToken');
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
             // Obtener datos del perfil del usuario después del login
             const userProfileResponse = await apiClient.get('userprofiles/me/');
-            setUser(userProfileResponse.data); 
+            setUser(userProfileResponse.data);
             setIsLoadingAuth(false); // Termina el proceso de login
             return true;
         } catch (error) {
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
             setUser(null);
             delete apiClient.defaults.headers.common['Authorization'];
             setIsLoadingAuth(false); // Termina el proceso de login (con error)
-            throw error; 
+            throw error;
         }
     };
 
