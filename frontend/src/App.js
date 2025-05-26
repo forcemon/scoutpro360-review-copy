@@ -11,7 +11,7 @@ import ReportDetailPage from './pages/ReportDetailPage';
 
 // Componentes de Autenticación
 import LoginPage from './pages/auth/LoginPage';
-import ProtectedLayout from './components/auth/ProtectedLayout'; // <<< ESTA LÍNEA ES CRUCIAL
+import ProtectedLayout from './pages/auth/ProtectedLayout'; // <<< ESTA LÍNEA ES CRUCIAL
 
 import './App.css';
 
