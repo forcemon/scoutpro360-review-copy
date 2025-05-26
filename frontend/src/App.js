@@ -11,37 +11,40 @@ import ReportDetailPage from './pages/ReportDetailPage';
 
 // Componentes de Autenticación
 import LoginPage from './pages/auth/LoginPage';
-import ProtectedLayout from './components/auth/ProtectedLayout'; // Importa el layout protegido
+import ProtectedLayout from './components/auth/ProtectedLayout'; // Asegúrate que esta ruta sea correcta
 
 // Opcional: Páginas para errores o no autorizados
 // import NotFoundPage from './pages/NotFoundPage'; 
 // import UnauthorizedPage from './pages/UnauthorizedPage'; 
 
-import './App.css';
+import './App.css'; // Estilos globales de App si los tienes
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rutas Públicas (ej. Login) */}
+        {/* Ruta Pública para Login */}
         <Route path="/login" element={<LoginPage />} />
-        {/* Podrías añadir una página para no autorizado aquí si la creas */}
+        
+        {/* Opcional: Ruta para no autorizado */}
         {/* <Route path="/unauthorized" element={<UnauthorizedPage />} /> */}
 
-        {/* Rutas Protegidas que usan el Layout Principal */}
-        {/* Todas las rutas dentro de este Route element usarán ProtectedLayout */}
-        <Route element={<ProtectedLayout />}> 
-          {/* Redirección de la ruta raíz al dashboard */}
+        {/* Rutas Protegidas que usarán ProtectedLayout (que incluye el Layout principal con Sidebar y TopBar) */}
+        <Route element={<ProtectedLayout />}>
+          {/* Redirección de la ruta raíz "/" al dashboard */}
           <Route index element={<Navigate to="/dashboard" replace />} /> 
+          {/* Si quieres que la ruta raíz "/" también funcione y no solo "/dashboard", puedes añadir:
+          <Route path="/" element={<Navigate to="/dashboard" replace />} /> 
+          O hacer que el 'index' de arriba sea el único punto de entrada después del login.
+          */}
           
-          {/* Páginas protegidas */}
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="players" element={<PlayerListPage />} />
           <Route path="players/:playerId" element={<PlayerProfilePage />} />
           <Route path="reports" element={<MyReportsPage />} />
           <Route path="reports/:reportId" element={<ReportDetailPage />} />
           
-          {/* Aquí irían otras rutas protegidas que usan el Layout principal */}
+          {/* Aquí irían otras rutas protegidas que usan el Layout */}
           {/* Ejemplo: <Route path="settings" element={<SettingsPage />} /> */}
 
           {/* Opcional: Un catch-all para rutas no encontradas DENTRO del layout protegido */}
