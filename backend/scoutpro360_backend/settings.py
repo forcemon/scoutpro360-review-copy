@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os # <--- ASEGÚRATE DE QUE ESTA LÍNEA ESTÉ PRESENTE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Es recomendable mover esto a una variable de entorno en producción
-# SECRET_KEY = config('DJANGO_SECRET_KEY', default='django-insecure-qnq-(jewq1=q+-f643)kql2a&8@3j4rl7$a$kw1#&vdoa@9xsy(oq6')
-# Revertimos a la clave original hardcodeada (o una similar si la tenías diferente)
-SECRET_KEY = 'django-insecure-qnq-(jewq1=q+-f643)kql2a&8@3j4rl7$a$kw1#&vdoa@9xsy(oq6' # ¡Asegúrate que esta sea tu clave original o una válida!
+SECRET_KEY = 'django-insecure-qnq-(jewq1=q+-f643)kql2a&8@3j4rl7$a$kw1#&vdoa@9xsy(oq6' # Asegúrate que esta sea tu clave
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True # Cambiar a False en producción
@@ -135,7 +133,7 @@ USE_TZ = True # Habilitar soporte para zonas horarias
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles' # Descomentar y configurar para producción (collectstatic)
+# STATIC_ROOT = BASE_DIR / 'staticfiles' # Para producción con collectstatic. Mantenlo comentado en desarrollo.
 
 
 # Default primary key field type
@@ -154,35 +152,37 @@ CORS_ALLOWED_ORIGINS = [
 # Opcional: permitir credenciales (cookies, autenticación) si es necesario
 # CORS_ALLOW_CREDENTIALS = True
 # Opcional: permitir todos los orígenes (solo para desarrollo, ¡inseguro!)
-# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True # Descomentar solo para desarrollo si es estrictamente necesario
 
 
 # --- CONFIGURACIÓN DE DJANGO REST FRAMEWORK ---
-# Añadido para configurar la paginación y otros defaults de DRF
 REST_FRAMEWORK = {
-    # Paginación por defecto para las vistas de lista
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 15,  # Número de elementos por página (ajusta según necesites)
-
-    # Permisos por defecto (ajusta según tu política de seguridad)
+    'PAGE_SIZE': 15,
     'DEFAULT_PERMISSION_CLASSES': [
-        # Permite acceso de lectura a cualquiera, pero escritura solo a autenticados
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-        # Permite cualquier acceso (más simple para empezar desarrollo)
-        # 'rest_framework.permissions.AllowAny',
     ],
-
-    # Filtros por defecto habilitados globalmente (si los usas consistentemente)
     'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend', # Para usar FilterSets
-        'rest_framework.filters.SearchFilter',             # Para ?search=...
-        'rest_framework.filters.OrderingFilter',           # Para ?ordering=...
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
     ],
-
-    # Autenticación por defecto (si la usas)
     # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework.authentication.SessionAuthentication', # Para login de Django
-    #     'rest_framework.authentication.TokenAuthentication', # Para API Tokens
+    #     'rest_framework.authentication.SessionAuthentication',
+    #     'rest_framework.authentication.TokenAuthentication',
     # ],
 }
 # --- FIN CONFIGURACIÓN DRF ---
+
+
+# --- INICIO: Configuración de Archivos Multimedia (Media Files) ---
+# URL base desde donde se servirán los archivos multimedia.
+MEDIA_URL = '/media/'
+
+# Ruta absoluta en el sistema de archivos donde se guardarán los archivos subidos.
+# BASE_DIR ya está definido arriba usando pathlib.Path
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Si prefieres usar os.path.join (asegúrate de tener 'import os' al principio):
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# --- FIN: Configuración de Archivos Multimedia ---

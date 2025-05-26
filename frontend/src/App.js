@@ -6,6 +6,7 @@ import DashboardPage from './pages/DashboardPage';
 import PlayerListPage from './pages/PlayerListPage';
 import PlayerProfilePage from './pages/PlayerProfilePage';
 import MyReportsPage from './pages/MyReportsPage'; // El componente sigue siendo el mismo
+// Asegúrate de que no haya una línea como: import ProtectedRoute from './ProtectedRoute';
 
 import './App.css';
 
@@ -37,6 +38,8 @@ function App() {
 
         {/* Aquí podrías añadir rutas que NO usen el Layout principal */}
         {/* Ejemplo: <Route path="/login" element={<LoginPage />} /> */}
+        {/* Ejemplo: Si tuvieras ProtectedRoute, se usaría aquí o dentro de Layout */}
+        {/* <Route path="/admin-area" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} /> */}
 
       </Routes>
     </BrowserRouter>

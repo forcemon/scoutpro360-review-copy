@@ -142,3 +142,22 @@
          font-size: 9px;
      }
 }
+
+.user-profile-section .user-name-display {
+    color: var(--secondary-text);
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.logout-button {
+    margin-left: 10px;
+    font-size: 16px; /* Ajustar tamaño si es necesario */
+}
+
+/* Responsive para el nombre de usuario */
+@media (max-width: 992px) { /* O el breakpoint que prefieras */
+    .user-profile-section .user-name-display {
+        display: none; /* Ocultar nombre en pantallas más pequeñas */
+    }
+}
