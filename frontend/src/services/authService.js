@@ -1,118 +1,121 @@
 // frontend/src/services/authService.js
-import apiClient from './api'; // Asumiendo que tu apiClient (axios) está configurado
-import { jwtDecode } from 'jwt-decode'; // Necesitarás instalar jwt-decode: npm install jwt-decode
+import apiClient from './api';
+import { jwtDecode } from 'jwt-decode';
 
-const MOCK_USER_DATA = {
-  id: 1,
-  username: "Mauricio Scout",
-  email: "mauricio@example.com",
-  // Puedes añadir más campos que esperes del perfil de usuario
-  profile: {
-    role: 'Scout',
-    team_name: 'Club Atlético Independiente',
-    image_url: `https://ui-avatars.com/api/?name=Mauricio+Scout&background=0D8ABC&color=fff&size=100&bold=true`
-  }
+// Datos simulados para el usuario. En una aplicación real, estos datos vendrían del backend.
+const MOCK_USER_PROFILE_DATA = {
+  role: 'Scout',
+  team_name: 'Club Atlético Independiente',
+  image_url: `https://ui-avatars.com/api/?name=Mauricio+Scout&background=0D8ABC&color=fff&size=100&bold=true`
 };
 
-const MOCK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ik1hdXJpY2lvIFNjb3V0IiwiZXhwIjoxNzU4Njg4MDAwLCJlbWFpbCI6Im1hdXJpY2lvQGV4YW1wbGUuY29tIiwicm9sZSI6IlNjb3V0IiwidGVhbV9uYW1lIjoiQ2x1YiBBdGzDqXRpY28gSW5kZXBlbmRpZW50ZSJ9.mockTokenSignature12345"; // Token de ejemplo, expira muy en el futuro
+// Token JWT simulado. Este token está diseñado para expirar en un futuro lejano.
+// Incluye información básica del usuario y su perfil para la simulación.
+const MOCK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ik1hdXJpY2lvIFNjb3V0IiwiZW1haWwiOiJtYXVyaWNpb0BleGFtcGxlLmNvbSIsImV4cCI6MzI1MDM2ODAwMDAsInByb2ZpbGUiOnsicm9sZSI6IlNjb3V0IiwidGVhbV9uYW1lIjoiQ2x1YiBBdGzDqXRpY28gSW5kZXBlbmRpZW50ZSIsImltYWdlX3VybCI6Imh0dHBzOi8vdWktYXZhdGFycy5jb20vYXBpLz9uYW1lPU1hdXJpY2lvK1Njb3V0JmJhY2tncm91bmQ9MEQ4QUJDJmNvbG9yPWZmZiZzaXplPTEwMCZib2xkPXRydWUifX0.mock_jwt_signature_for_testing_only";
 
 /**
  * Simula un inicio de sesión.
- * En una aplicación real, esto haría una petición POST a /api/token/ o similar.
  * @param {string} username
  * @param {string} password
- * @returns {Promise<object>}
+ * @returns {Promise<object>} Un objeto con `user` y `tokens`.
  */
 export const login = async (username, password) => {
-  console.log("[authService] Intentando login con:", { username });
-  // Simulación de una llamada a la API
-  // await apiClient.post('/token/', { username, password });
+  console.log("[authService] Intentando login simulado con:", { username });
+
+  // Simulación de la lógica de autenticación
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (username && password) { // Simulación básica de credenciales
-        const user = MOCK_USER_DATA;
-        const tokens = { access: MOCK_TOKEN, refresh: "mockRefreshToken" };
-        localStorage.setItem('authTokens', JSON.stringify(tokens));
-        // apiClient.defaults.headers.common['Authorization'] = `Bearer ${tokens.access}`; // Esto se manejaría mejor en apiClient con interceptors
-        console.log("[authService] Login simulado exitoso:", { user, tokens });
-        resolve({ user, tokens });
+      if (username && password) { // Validación básica de credenciales (simulada)
+        const tokens = { access: MOCK_TOKEN, refresh: "mockRefreshTokenSimulated" };
+        localStorage.setItem('authTokens', JSON.stringify(tokens)); // Guardar tokens en localStorage
+
+        try {
+          const decodedToken = jwtDecode(tokens.access);
+          const user = {
+              id: decodedToken.user_id,
+              username: decodedToken.username,
+              email: decodedToken.email,
+              profile: decodedToken.profile || MOCK_USER_PROFILE_DATA // Usar perfil del token o el mock
+          };
+          console.log("[authService] Login simulado exitoso:", { user });
+          resolve({ user, tokens });
+        } catch (e) {
+          console.error("[authService] Error decodificando MOCK_TOKEN durante login:", e);
+          reject(new Error("Error interno con token simulado."));
+        }
       } else {
         console.error("[authService] Login simulado fallido: Credenciales inválidas");
         reject(new Error("Credenciales inválidas (simulado)"));
       }
-    }, 500);
+    }, 500); // Simular demora de red
   });
 };
 
 /**
- * Cierra la sesión del usuario.
+ * Cierra la sesión del usuario eliminando los tokens.
  */
 export const logout = () => {
   localStorage.removeItem('authTokens');
-  // delete apiClient.defaults.headers.common['Authorization']; // Limpiar header
   console.log("[authService] Logout realizado.");
-  // Aquí podrías llamar a una API endpoint para invalidar el refresh token si existiera
+  // En una aplicación real, aquí también se podría invalidar el token en el backend.
 };
 
 /**
- * Obtiene los datos del usuario a partir del token almacenado.
- * @returns {object|null}
+ * Obtiene los datos del usuario actual a partir del token almacenado en localStorage.
+ * Verifica la expiración del token.
+ * @returns {object|null} El objeto del usuario si está autenticado y el token es válido, sino null.
  */
-export const getCurrentUser = ()=> {
-  const tokens = JSON.parse(localStorage.getItem('authTokens'));
-  if (tokens && tokens.access) {
+export const getCurrentUser = () => {
+  const authTokensString = localStorage.getItem('authTokens');
+  if (authTokensString) {
     try {
+      const tokens = JSON.parse(authTokensString);
+      if (!tokens.access) {
+        console.warn("[authService] No se encontró access token en localStorage.");
+        logout(); // Limpiar si la estructura es incorrecta
+        return null;
+      }
+
       const decodedToken = jwtDecode(tokens.access);
-      // Simula la estructura del MOCK_USER_DATA basado en el token si es necesario
-      // o, mejor aún, que el token ya contenga la info necesaria o se haga otra llamada a /api/users/me/
-      console.log("[authService] Usuario actual decodificado:", decodedToken);
-      // Para mantener consistencia con la estructura usada en el TopBar del repo de referencia:
-      return {
-        id: decodedToken.user_id || MOCK_USER_DATA.id,
-        username: decodedToken.username || MOCK_USER_DATA.username,
-        email: decodedToken.email || MOCK_USER_DATA.email,
-        profile: { // Simula que el perfil también viene o se infiere
-            role: decodedToken.role || MOCK_USER_DATA.profile.role,
-            image_url: MOCK_USER_DATA.profile.image_url, // Asumir que la imagen no está en el token
-            team_name: decodedToken.team_name || MOCK_USER_DATA.profile.team_name,
+
+      // Verifica si el token ha expirado (exp está en segundos, Date.now() en milisegundos)
+      if (decodedToken.exp * 1000 < Date.now()) {
+        console.warn("[authService] Token expirado.");
+        logout(); // Limpiar el token expirado
+        return null;
+      }
+
+      // Construye el objeto de usuario con la información del token
+      const user = {
+        id: decodedToken.user_id,
+        username: decodedToken.username,
+        email: decodedToken.email,
+        profile: decodedToken.profile || { // Fallback si el perfil no está en el token
+            role: 'Viewer',
+            team_name: '',
+            image_url: `https://ui-avatars.com/api/?name=${encodeURIComponent(decodedToken.username || 'U')}&background=0D8ABC&color=fff&size=100&bold=true`
         }
       };
+      // console.log("[authService] Usuario actual recuperado del token:", user);
+      return user;
     } catch (error) {
-      console.error("[authService] Error decodificando token:", error);
-      logout(); // Token inválido o expirado
+      console.error("[authService] Error procesando token almacenado:", error);
+      logout(); // Limpiar en caso de token inválido o error de parseo
       return null;
     }
   }
+  // console.log("[authService] No se encontraron tokens en localStorage.");
   return null;
 };
 
 /**
  * Verifica si el usuario está autenticado.
- * @returns {boolean}
+ * @returns {boolean} True si el usuario está autenticado, false en caso contrario.
  */
 export const isAuthenticated = () => {
-  const user = getCurrentUser();
+  const user = getCurrentUser(); // getCurrentUser maneja la lógica de expiración y validez del token
   return !!user; // Retorna true si user no es null/undefined
 };
-
-// Podrías añadir funciones para refrescar token aquí
-// export const refreshToken = async () => { ... }
-
-// Interceptor para añadir el token a todas las peticiones salientes
-// Esto es una forma más robusta de manejar los tokens que setearlo directamente en apiClient.defaults
-// Necesitas configurar esto en tu archivo api.js o aquí mismo si prefieres.
-// Ejemplo en apiClient.js:
-/*
-apiClient.interceptors.request.use(config => {
-  const tokens = JSON.parse(localStorage.getItem('authTokens'));
-  if (tokens && tokens.access) {
-    config.headers.Authorization = `Bearer ${tokens.access}`;
-  }
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
-*/
 
 export default {
   login,

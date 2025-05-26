@@ -1,12 +1,21 @@
 // frontend/src/App.js
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './layouts/Layout';
+
+// Importa tus páginas
 import DashboardPage from './pages/DashboardPage';
 import PlayerListPage from './pages/PlayerListPage';
 import PlayerProfilePage from './pages/PlayerProfilePage';
-import MyReportsPage from './pages/MyReportsPage'; // El componente sigue siendo el mismo
-// Asegúrate de que no haya una línea como: import ProtectedRoute from './ProtectedRoute';
+import MyReportsPage from './pages/MyReportsPage';
+import ReportDetailPage from './pages/ReportDetailPage'; 
+
+// Componentes de Autenticación
+import LoginPage from './pages/auth/LoginPage';
+import ProtectedLayout from './components/auth/ProtectedLayout'; // Importa el layout protegido
+
+// Opcional: Páginas para errores o no autorizados
+// import NotFoundPage from './pages/NotFoundPage'; 
+// import UnauthorizedPage from './pages/UnauthorizedPage'; 
 
 import './App.css';
 
@@ -14,33 +23,33 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rutas principales que usan el Layout (Sidebar + Topbar) */}
-        <Route path="/" element={<Layout />}>
-          {/* Ruta índice que redirige al dashboard */}
-          <Route index element={<Navigate to="/dashboard" replace />} />
+        {/* Rutas Públicas (ej. Login) */}
+        <Route path="/login" element={<LoginPage />} />
+        {/* Podrías añadir una página para no autorizado aquí si la creas */}
+        {/* <Route path="/unauthorized" element={<UnauthorizedPage />} /> */}
 
-          {/* Rutas de las páginas */}
+        {/* Rutas Protegidas que usan el Layout Principal */}
+        {/* Todas las rutas dentro de este Route element usarán ProtectedLayout */}
+        <Route element={<ProtectedLayout />}> 
+          {/* Redirección de la ruta raíz al dashboard */}
+          <Route index element={<Navigate to="/dashboard" replace />} /> 
+          
+          {/* Páginas protegidas */}
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="players" element={<PlayerListPage />} />
           <Route path="players/:playerId" element={<PlayerProfilePage />} />
-
-          {/* --- CAMBIO DE RUTA --- */}
-          {/* Ahora la página de informes se accede desde /reports */}
           <Route path="reports" element={<MyReportsPage />} />
-          {/* La ruta anterior /my-reports ya no se usa */}
-          {/* <Route path="my-reports" element={<MyReportsPage />} /> */}
-          {/* --- FIN CAMBIO DE RUTA --- */}
+          <Route path="reports/:reportId" element={<ReportDetailPage />} />
+          
+          {/* Aquí irían otras rutas protegidas que usan el Layout principal */}
+          {/* Ejemplo: <Route path="settings" element={<SettingsPage />} /> */}
 
-
-          {/* Considera añadir una ruta catch-all para páginas no encontradas */}
+          {/* Opcional: Un catch-all para rutas no encontradas DENTRO del layout protegido */}
           {/* <Route path="*" element={<NotFoundPage />} /> */}
         </Route>
-
-        {/* Aquí podrías añadir rutas que NO usen el Layout principal */}
-        {/* Ejemplo: <Route path="/login" element={<LoginPage />} /> */}
-        {/* Ejemplo: Si tuvieras ProtectedRoute, se usaría aquí o dentro de Layout */}
-        {/* <Route path="/admin-area" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} /> */}
-
+        
+        {/* Opcional: Un catch-all general para rutas no encontradas FUERA de cualquier layout */}
+        {/* <Route path="*" element={<div><h1>404 - Página No Encontrada</h1><Link to="/">Ir al inicio</Link></div>} /> */}
       </Routes>
     </BrowserRouter>
   );
