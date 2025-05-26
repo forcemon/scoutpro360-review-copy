@@ -5,11 +5,32 @@ from .models import (
     PlayerInterest, Offer, PlayerHistoricalData # Asegúrate que todos los modelos estén importados
 )
 from django.utils.html import format_html
+from django.urls import reverse # Importar reverse
 
 class ReportAttachmentInline(admin.TabularInline): # O admin.StackedInline
     model = ReportAttachment
     extra = 1 # Número de formularios vacíos para añadir adjuntos
     fields = ('file', 'description') # Campos a mostrar en el inline
+
+class PlayerHistoricalDataInline(admin.TabularInline):
+    model = PlayerHistoricalData
+    fields = ('date_recorded', 'market_value', 'velocidad', 'resistencia', 'notes')
+    extra = 1
+    ordering = ['-date_recorded']
+
+class ReportInline(admin.TabularInline):
+    model = Report
+    fields = ('report_date', 'report_specialization', 'overall_rating', 'match_observed', 'report_link')
+    readonly_fields = ('report_link',)
+    extra = 0
+    max_num = 5 # Limitar el número de informes mostrados
+
+    def report_link(self, obj):
+        if obj.pk:
+            url = reverse('admin:api_report_change', args=[obj.pk])
+            return format_html('<a href="{}">Ver Informe</a>', url)
+        return "N/A"
+    report_link.short_description = 'Enlace al Informe'
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
@@ -59,6 +80,7 @@ class PlayerAdmin(admin.ModelAdmin):
     )
     readonly_fields = ('calculated_age', 'created_at', 'updated_at')
     list_per_page = 20
+    inlines = [PlayerHistoricalDataInline, ReportInline] # Añadir los inlines
 
     def display_image_thumbnail(self, obj):
         if obj.image_url:
