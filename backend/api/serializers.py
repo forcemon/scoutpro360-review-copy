@@ -103,6 +103,7 @@ class ReportSerializer(serializers.ModelSerializer):
     scout_username = serializers.CharField(source='scout.username', read_only=True, allow_null=True)
     report_specialization_display = serializers.CharField(source='get_report_specialization_display', read_only=True, allow_null=True)
     attachments = ReportAttachmentSerializer(many=True, read_only=True)
+    overall_rating_on_5_scale = serializers.SerializerMethodField(read_only=True)
 
     # Campos para escribir IDs
     player_id = serializers.PrimaryKeyRelatedField(
@@ -123,16 +124,26 @@ class ReportSerializer(serializers.ModelSerializer):
         model = Report
         fields = [
             'id', 'player_id', 'player_name', 'scout_id', 'scout_username', 'report_date',
+            'title', # Added title field
             'report_specialization', 'report_specialization_display',
             'summary_report_parent_id', 
-            'match_observed', 'overall_rating', 'potential_rating',
+            'match_observed', 'overall_rating', 'overall_rating_on_5_scale', 'potential_rating',
             'summary', 'detailed_notes', 'attachments',
             'created_at', 'updated_at'
         ]
         read_only_fields = (
             'player_name', 'scout_username', 'report_specialization_display', 
-            'attachments', 'created_at', 'updated_at'
+            'attachments', 'created_at', 'updated_at',
+            'overall_rating_on_5_scale' # Added to read_only_fields
         )
+
+    def get_overall_rating_on_5_scale(self, obj):
+        if obj.overall_rating is not None:
+            # Calculate 0-5 scale value
+            rating_on_5 = (obj.overall_rating / 100) * 5
+            # Round to one decimal place
+            return round(rating_on_5, 1)
+        return None
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
