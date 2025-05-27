@@ -2,63 +2,67 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFutbol, faBullseye, faRunning, faChartLine } from '@fortawesome/free-solid-svg-icons'; // Example icons
-import './KeyStatsHighlight.css'; // We will create this CSS file next
+// Added faChartLine back for the title
+import { faFutbol, faBullseye, faRunning, faChartLine } from '@fortawesome/free-solid-svg-icons';
+import './KeyStatsHighlight.css';
 
 const KeyStatsHighlight = ({ playerData }) => {
   if (!playerData) {
     return <div className="key-stats-highlight-card card loading">Cargando estadísticas clave...</div>;
   }
 
-  // Access the placeholder stats from playerData
   const stats = [
     {
-      label: 'Partidos Jugados (365 días)',
-      value: playerData.partidos_jugados_365_dias !== undefined ? playerData.partidos_jugados_365_dias : 'N/A',
+      label: 'Partidos Jugados', // Removed (365 días) to match image 09181c.png
+      value: playerData.partidos_jugados_365 !== undefined ? playerData.partidos_jugados_365 : 'N/A',
       icon: faRunning,
       unit: '',
     },
     {
-      label: 'Goles (365 días)',
-      value: playerData.goles_365_dias !== undefined ? playerData.goles_365_dias : 'N/A',
+      label: 'Goles', // Removed (365 días)
+      value: playerData.goles_365 !== undefined ? playerData.goles_365 : 'N/A',
       icon: faFutbol,
       unit: '',
     },
     {
-      label: 'Asistencias (365 días)',
-      value: playerData.asistencias_365_dias !== undefined ? playerData.asistencias_365_dias : 'N/A',
-      icon: faBullseye, // Example, consider faHandshake or similar for assists
+      label: 'Asistencias', // Removed (365 días)
+      value: playerData.asistencias_365 !== undefined ? playerData.asistencias_365 : 'N/A',
+      icon: faBullseye,
       unit: '',
     },
-    // Example for a potential xG stat - can be uncommented if xG_365_dias is added to serializer
-    // {
-    //   label: 'xG (Expected Goals) (365 días)',
-    //   value: playerData.xG_365_dias !== undefined ? playerData.xG_365_dias.toFixed(2) : 'N/A',
-    //   icon: faChartLine,
-    //   unit: '',
-    // },
+    {
+      label: 'xG por 90 min', // Added Expected Goals
+      value: playerData.xg_per_90_365 !== undefined ? parseFloat(playerData.xg_per_90_365).toFixed(2) : 'N/A',
+      icon: faChartLine, // Using faChartLine for xG
+      unit: '',
+    },
   ];
+
+  const allStatsNA = stats.every(stat => stat.value === 'N/A');
 
   return (
     <div className="key-stats-highlight-card card">
-      <div className="card-title">
+      {/* Added icon and new class "highlighted-title" */}
+      <div className="card-title highlighted-title">
+        <FontAwesomeIcon icon={faChartLine} />
         Estadísticas Clave (Últimos 365 días)
       </div>
       <div className="stats-container">
-        {stats.map((stat) => (
-          stat.value !== 'N/A' && ( // Only render if value is available
-            <div key={stat.label} className="stat-item-highlight">
-              <FontAwesomeIcon icon={stat.icon} className="stat-icon-highlight" />
-              <div className="stat-value-highlight">
-                {stat.value}
-                {stat.unit ? <span className="stat-unit-highlight">{stat.unit}</span> : ''}
+        {allStatsNA ? (
+          <p className="no-stats-available">Estadísticas de rendimiento no disponibles.</p>
+        ) : (
+          stats.map((stat) => (
+            stat.value !== 'N/A' && (
+              <div key={stat.label} className="stat-item-highlight">
+                <FontAwesomeIcon icon={stat.icon} className="stat-icon-highlight" />
+                <div className="stat-value-highlight">
+                  {stat.value}
+                  {stat.unit ? <span className="stat-unit-highlight">{stat.unit}</span> : ''}
+                </div>
+                <div className="stat-label-highlight">{stat.label}</div>
               </div>
-              <div className="stat-label-highlight">{stat.label}</div>
-            </div>
-          )
-        ))}
-        {stats.every(stat => stat.value === 'N/A') && (
-            <p className="no-stats-available">Estadísticas de rendimiento no disponibles.</p>
+            )
+          ))
         )}
       </div>
     </div>
@@ -67,10 +71,10 @@ const KeyStatsHighlight = ({ playerData }) => {
 
 KeyStatsHighlight.propTypes = {
   playerData: PropTypes.shape({
-    partidos_jugados_365_dias: PropTypes.number,
-    goles_365_dias: PropTypes.number,
-    asistencias_365_dias: PropTypes.number,
-    // xG_365_dias: PropTypes.number, // Uncomment if using
+    partidos_jugados_365: PropTypes.number, // Updated field name
+    goles_365: PropTypes.number,           // Updated field name
+    asistencias_365: PropTypes.number,     // Updated field name
+    xg_per_90_365: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Added
   }),
 };
 
