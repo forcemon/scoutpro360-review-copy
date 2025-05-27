@@ -290,7 +290,15 @@ class Offer(models.Model):
 class PlayerHistoricalData(models.Model):
     player = models.ForeignKey(Player, related_name='historical_data', on_delete=models.CASCADE)
     date_recorded = models.DateField(default=date.today, verbose_name="Fecha de Registro")
-    # Replicar campos de atributos de Player que se quieran historizar
+    height = models.PositiveIntegerField(null=True, blank=True, help_text="Altura en cm")
+    weight = models.PositiveIntegerField(null=True, blank=True, help_text="Peso en kg")
+    control = models.PositiveIntegerField(null=True, blank=True, help_text="(0-100)")
+    pase = models.PositiveIntegerField(null=True, blank=True, help_text="(0-100)")
+    precision_tiro = models.PositiveIntegerField(null=True, blank=True, help_text="(0-100)")
+    anticipacion = models.PositiveIntegerField(null=True, blank=True, help_text="(0-100)")
+    posicionamiento = models.PositiveIntegerField(null=True, blank=True, help_text="(0-100)")
+    vision_juego = models.PositiveIntegerField(null=True, blank=True, help_text="(0-100)")
+    # Existing historical attributes
     velocidad = models.PositiveIntegerField(null=True, blank=True)
     resistencia = models.PositiveIntegerField(null=True, blank=True)
     # ... otros atributos ...
@@ -305,3 +313,22 @@ class PlayerHistoricalData(models.Model):
 
     def __str__(self):
         return f"Datos de {self.player.name} para {self.date_recorded}"
+
+
+class PlayerTeamHistory(models.Model):
+    player = models.ForeignKey(Player, related_name='team_history', on_delete=models.CASCADE, verbose_name="Jugador")
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Equipo")
+    start_date = models.DateField(verbose_name="Fecha de Inicio")
+    end_date = models.DateField(null=True, blank=True, verbose_name="Fecha de Fin (si aplica)")
+    notes = models.TextField(blank=True, null=True, verbose_name="Notas (ej: tipo de traspaso, cesión)")
+
+    class Meta:
+        ordering = ['-start_date', '-end_date']
+        verbose_name = "Historial de Equipo del Jugador"
+        verbose_name_plural = "Historiales de Equipos de Jugadores"
+        unique_together = ('player', 'team', 'start_date') # Prevents duplicate entries for the same player, team, and start date
+
+    def __str__(self):
+        team_name = self.team.name if self.team else "Equipo Desconocido"
+        end_date_str = self.end_date.strftime('%Y-%m-%d') if self.end_date else "Presente"
+        return f"{self.player.name} en {team_name} ({self.start_date.strftime('%Y-%m-%d')} - {end_date_str})"
