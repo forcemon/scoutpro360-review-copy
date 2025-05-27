@@ -1,10 +1,11 @@
 // frontend/src/components/playerProfile/LastReportPreview.js
 import React from 'react';
-// import { Link } from 'react-router-dom'; // Ya no se necesita Link
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './LastReportPreview.css'; // Asegúrate de tener estilos básicos
 
 // Componente para mostrar una vista previa del último informe
 const LastReportPreview = ({ report }) => {
+  const navigate = useNavigate(); // Initialize useNavigate
 
   // Si no hay informe, muestra un mensaje
   if (!report) {
@@ -17,12 +18,15 @@ const LastReportPreview = ({ report }) => {
   }
 
   // Formatea la fecha si es necesario (ejemplo básico)
-  const reportDate = report.created_at ? new Date(report.created_at).toLocaleDateString() : 'Fecha desconocida';
-  const authorName = report.author_info ? report.author_info.username : 'Autor desconocido';
+  const reportDate = report.report_date ? new Date(report.report_date).toLocaleDateString() : 'Fecha desconocida'; // Updated prop
+  const authorName = report.scout_username || 'Autor desconocido'; // Updated prop
 
   const handleViewMoreClick = () => {
-      console.log(`Clic en "Ver más" para informe ID: ${report.id}. Navegación deshabilitada.`);
-      // Aquí no hacemos nada ya que la página de detalle fue eliminada
+    if (report && report.id) {
+        navigate(`/reports/${report.id}`);
+    } else {
+        console.log('ID de informe no disponible para navegación.');
+    }
   };
 
   return (

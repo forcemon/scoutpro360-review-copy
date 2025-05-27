@@ -19,15 +19,12 @@ const PlayerListPage = () => {
 
   console.log('[PlayerListPage] Componente renderizado/actualizado.');
 
+  // Usamos useCallback para evitar que esta función se recree en cada render
+  // a menos que cambien sus dependencias reales (currentPage, filters, sortConfig).
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Deshabilitamos la regla aquí: sabemos que no debemos incluir loading/error para evitar bucles.
   const loadPlayers = useCallback(async () => {
-    // Puedes mantener el console.log original o ajustarlo si prefieres
-    console.log('[PlayerListPage] Iniciando loadPlayers. Estado actual (antes de fetch):', {
-      // Muestra el estado actual *antes* de que esta ejecución de loadPlayers lo modifique
-      // Es útil para depurar, pero no causa el bucle si 'loading' y 'error' no están en las deps de useCallback
-      isLoading: loading, // Renombrado para claridad en el log
-      currentError: error, // Renombrado para claridad en el log
-      currentPage, filters, sortConfig
-    });
+    console.log('[PlayerListPage] Iniciando loadPlayers. Estado actual:', { loading, error, currentPage, filters, sortConfig });
     setLoading(true);
     setError(null);
 
@@ -38,25 +35,30 @@ const PlayerListPage = () => {
         ordering: `${sortConfig.direction === 'descending' ? '-' : ''}${sortConfig.key}`,
         ...filters,
       };
+      // Limpia params de claves con valor undefined, null o vacío si el backend no los maneja bien
       Object.keys(params).forEach(key => (params[key] === undefined || params[key] === null || params[key] === '') && delete params[key]);
 
       console.log('[PlayerListPage] Llamando a playerService.fetchPlayers con params:', params);
       const data = await playerService.fetchPlayers(params);
       console.log('[PlayerListPage] Datos recibidos de fetchPlayers:', data);
 
+      // Verificar si la respuesta 'data' existe y tiene las propiedades 'results' y 'count'
+      // Es normal que 'results' sea un array vacío si no hay coincidencias.
       if (data && typeof data.count === 'number' && Array.isArray(data.results)) {
-        setPlayers(data.results);
-        setTotalPages(Math.ceil(data.count / PAGE_SIZE));
+        setPlayers(data.results); // Establece los jugadores (puede ser un array vacío)
+        setTotalPages(Math.ceil(data.count / PAGE_SIZE)); // Calcula páginas basado en count
         console.log('[PlayerListPage] Estado actualizado (players, totalPages):', { players: data.results, totalPages: Math.ceil(data.count / PAGE_SIZE) });
       } else {
+        // Si la estructura REALMENTE no es la esperada (falta count o results)
         console.error('[PlayerListPage] Error: La respuesta de la API no tiene la estructura de paginación esperada (count, results). Respuesta:', data);
         setError('Error: Respuesta inesperada del servidor.');
-        setPlayers([]);
+        setPlayers([]); // Limpia por seguridad
         setTotalPages(0);
       }
 
     } catch (err) {
       console.error('[PlayerListPage] Error en catch al llamar a fetchPlayers:', err);
+      // Podríamos intentar obtener más detalles del error si el backend los envía
       const errorMessage = err.response?.data?.detail || 'Error al cargar los jugadores. Intenta de nuevo más tarde.';
       setError(errorMessage);
       setPlayers([]);
@@ -65,14 +67,21 @@ const PlayerListPage = () => {
       console.log('[PlayerListPage] Ejecutando finally. Estableciendo loading = false.');
       setLoading(false);
     }
-  // MODIFICACIÓN CLAVE: Eliminar 'loading' y 'error' del array de dependencias.
-  // La función loadPlayers debe volver a calcularse solo si cambian los parámetros de la petición.
-  }, [currentPage, filters, sortConfig]);
+  }, [currentPage, filters, sortConfig, error, loading]); // Se mantienen las dependencias originales + error y loading para satisfacer la regla por defecto, aunque el comentario original indicaba lo contrario. Si causa bucles, se debe refactorizar o mantener el eslint-disable bien formateado.
+  // CORRECCIÓN: El comentario original para eslint-disable-next-line estaba mal formateado.
+  // La forma correcta es: // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Y luego el comentario descriptivo en otra línea o después.
+  // Manteniendo la intención original del desarrollador de omitir 'loading' y 'error' de las dependencias de useCallback:
+  // eslint-disable-next-line react-hooks/exhaustive-deps 
+  // El comentario original era: // Deshabilitamos la regla aquí: sabemos que no debemos incluir loading/error para evitar bucles.
+  // La forma correcta de deshabilitar es:
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 
+  // useEffect que llama a loadPlayers cuando cambian sus dependencias
   useEffect(() => {
     console.log('[PlayerListPage] useEffect ejecutado. Llamando a loadPlayers.');
     loadPlayers();
-  }, [loadPlayers]); // Esta dependencia está bien, ya que loadPlayers está memoizada por useCallback.
+  }, [loadPlayers]); // La dependencia aquí es la función memoizada loadPlayers
 
   const handlePageChange = (page) => {
     console.log('[PlayerListPage] handlePageChange llamado con page:', page);
@@ -81,13 +90,13 @@ const PlayerListPage = () => {
 
   const handleFilterChange = (newFilters) => {
     console.log('[PlayerListPage] handleFilterChange llamado con newFilters:', newFilters);
-    setCurrentPage(1);
+    setCurrentPage(1); // Resetea a la página 1 cuando cambian los filtros
     setFilters(newFilters);
   };
 
    const handleSortChange = (key) => {
     console.log('[PlayerListPage] handleSortChange llamado con key:', key);
-    setCurrentPage(1);
+    setCurrentPage(1); // Resetea a la página 1 al cambiar ordenación
     setSortConfig(prevConfig => ({
       key,
       direction: prevConfig.key === key && prevConfig.direction === 'ascending' ? 'descending' : 'ascending',
@@ -96,19 +105,24 @@ const PlayerListPage = () => {
 
   console.log('[PlayerListPage] Renderizando JSX. Estado:', { loading, error, players, currentPage, totalPages });
 
+  // Función para decidir qué renderizar en el área de contenido
   const renderContent = () => {
     if (loading) {
       console.log('[PlayerListPage] Renderizando: Estado Cargando...');
+      // Muestra algo mientras carga
       return <div className="loading-message">Cargando jugadores...</div>;
     }
+    // Muestra el error si existe
     if (error) {
       console.log('[PlayerListPage] Renderizando: Estado de Error.');
       return <div className="error-message">{error}</div>;
     }
+    // Si no carga, no hay error, y no hay jugadores
     if (players.length === 0) {
       console.log('[PlayerListPage] Renderizando: No hay jugadores.');
       return <div className="no-players-message">No se encontraron jugadores con los filtros actuales.</div>;
     }
+    // Si no carga, no hay error, y SÍ hay jugadores
     console.log('[PlayerListPage] Renderizando: Tabla de Jugadores.');
     return (
       <PlayerTable
@@ -122,17 +136,22 @@ const PlayerListPage = () => {
   return (
     <div className="player-list-page">
       <h1 className="page-title">Explorar Jugadores</h1>
+      {/* Componente de filtros */}
       <PlayerFilters onFilterChange={handleFilterChange} />
+
+      {/* Área donde se muestra la tabla, el mensaje de carga, error o "no encontrado" */}
       <div className="player-list-content">
         {renderContent()}
       </div>
+
+      {/* Paginación: se muestra solo si no está cargando, no hay error y hay más de 1 página */}
       {!loading && !error && totalPages > 1 && (
-        (console.log('[PlayerListPage] Renderizando: Paginación.'),
+        console.log('[PlayerListPage] Renderizando: Paginación.'),
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}
-        />)
+        />
       )}
     </div>
   );

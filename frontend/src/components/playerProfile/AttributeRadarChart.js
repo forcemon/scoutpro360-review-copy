@@ -33,41 +33,75 @@
         }
     };
 
-    // --- Configuración de Atributos por Categoría (sin cambios) ---
-    const attributeConfig = [ /* ... (como antes) ... */
-        { category: 'Físico', items: [ { key: 'velocidad', label: 'Velocidad' }, { key: 'agilidad', label: 'Agilidad' }, { key: 'fuerza', label: 'Fuerza' }, { key: 'resistencia', label: 'Resistencia' }, { key: 'salto', label: 'Salto' } ]},
-        { category: 'Técnico', items: [ { key: 'control', label: 'Control Balón' }, { key: 'regate', label: 'Regate' }, { key: 'finalizacion', label: 'Finalización' }, { key: 'pase_corto', label: 'Pases Cortos' }, { key: 'tiro_lejano', label: 'Tiros Lejanos' } ]},
-        { category: 'Táctico/Mental', items: [ { key: 'posicionamiento', label: 'Posicionamiento' }, { key: 'vision', label: 'Visión Juego' }, { key: 'trabajo', label: 'Ritmo Trabajo' }, { key: 'decision', label: 'Decisiones' }, { key: 'anticipacion', label: 'Anticipación' } ]}
+    // --- Configuración de Atributos por Categoría (MODIFICADA) ---
+    const attributeConfig = [
+        { category: 'Físico', items: [ { key: 'velocidad', label: 'Velocidad' }, { key: 'agilidad', label: 'Agilidad' }, { key: 'fuerza', label: 'Fuerza' }, { key: 'resistencia', label: 'Resistencia' } ]},
+        { category: 'Técnico', items: [ { key: 'control', label: 'Control Balón' }, { key: 'regate', label: 'Regate' }, { key: 'pase', label: 'Pase' }, { key: 'tiros_lejanos', label: 'Tiros Lejanos' }, { key: 'precision_tiro', label: 'Precisión Tiro'}, { key: 'talento', label: 'Talento' } ]},
+        { category: 'Táctico/Mental', items: [ { key: 'posicionamiento', label: 'Posicionamiento' }, { key: 'vision_juego', label: 'Visión Juego' }, { key: 'trabajo_equipo', label: 'Trabajo Equipo' }, { key: 'anticipacion', label: 'Anticipación' }, { key: 'liderazgo', label: 'Liderazgo' }, { key: 'marcaje', label: 'Marcaje' }, { key: 'entradas', label: 'Entradas' } ]}
     ];
 
+    function AttributeRadarChart({ playerData }) {
+        if (!playerData) {
+            return null; // O un componente de carga/estado vacío
+        }
+        const attributes = playerData; // Usar playerData directamente
 
-    function AttributeRadarChart({ playerData }) { // Recibe playerData pero no lo usa para los datos por ahora
+        // Construir labels y datasets dinámicamente desde attributeConfig
+        const allLabels = attributeConfig.reduce((acc, category) => {
+            category.items.forEach(item => acc.push(item.label));
+            return acc;
+        }, []);
 
-        // --- REVERTIDO A DATOS DE EJEMPLO ---
-        const placeholderAttributes = {
-            velocidad: 92, agilidad: 85, fuerza: 75, resistencia: 80, salto: 78,
-            control: 88, regate: 90, finalizacion: 86, pase_corto: 78, tiro_lejano: 82,
-            posicionamiento: 80, vision: 75, trabajo: 85, decision: 79, anticipacion: 81
+        const datasets = attributeConfig.map(category => {
+            const data = allLabels.map(label => {
+                const itemInCategory = category.items.find(it => it.label === label);
+                return itemInCategory ? (attributes[itemInCategory.key] || 0) : null; // Usar 0 si el atributo es undefined en playerData para evitar errores en el chart
+            });
+
+            let backgroundColor, borderColor, pointBackgroundColor;
+            switch (category.category.toLowerCase()) {
+                case 'físico':
+                    backgroundColor = 'rgba(255, 71, 87, 0.2)'; // Rojo
+                    borderColor = 'rgb(255, 71, 87)';
+                    pointBackgroundColor = 'rgb(255, 71, 87)';
+                    break;
+                case 'técnico':
+                    backgroundColor = 'rgba(46, 134, 222, 0.2)'; // Azul
+                    borderColor = 'rgb(46, 134, 222)';
+                    pointBackgroundColor = 'rgb(46, 134, 222)';
+                    break;
+                case 'táctico/mental':
+                    backgroundColor = 'rgba(38, 222, 129, 0.2)'; // Verde
+                    borderColor = 'rgb(38, 222, 129)';
+                    pointBackgroundColor = 'rgb(38, 222, 129)';
+                    break;
+                default:
+                    backgroundColor = 'rgba(128, 128, 128, 0.2)'; // Gris por defecto
+                    borderColor = 'rgb(128, 128, 128)';
+                    pointBackgroundColor = 'rgb(128, 128, 128)';
+            }
+
+            return {
+                label: category.category,
+                data: data,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+                pointBackgroundColor: pointBackgroundColor,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: borderColor,
+                borderWidth: 2,
+                spanGaps: false, // Importante para que los null no rompan la línea si se prefiere
+                tension: 0.1
+            };
+        });
+
+        const chartData = {
+            labels: allLabels,
+            datasets: datasets
         };
-        const attributes = placeholderAttributes; // Usar los placeholders
-        // --- FIN REVERSIÓN ---
 
-
-        // --- Configuración del Gráfico Radar (usa 'attributes') ---
-        const labels = [ /* ... (labels como antes) ... */
-             'Velocidad', 'Agilidad', 'Fuerza', 'Resistencia', 'Salto', 'Control', 'Regate',
-             'Finalización', 'Pase Corto', 'Tiro Lejano', 'Posicionamiento', 'Visión',
-             'Trabajo', 'Decisión', 'Anticipación'
-         ];
-        const chartData = { /* ... (datasets como antes, usando 'attributes') ... */
-            labels: labels,
-            datasets: [
-                 { label: 'Físico', data: [ attributes.velocidad, attributes.agilidad, attributes.fuerza, attributes.resistencia, attributes.salto, null, null, null, null, null, null, null, null, null, null ], backgroundColor: 'rgba(255, 71, 87, 0.2)', borderColor: 'rgb(255, 71, 87)', pointBackgroundColor: 'rgb(255, 71, 87)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'rgb(255, 71, 87)', borderWidth: 2, spanGaps: false, tension: 0.1 },
-                 { label: 'Técnico', data: [ null, null, null, null, null, attributes.control, attributes.regate, attributes.finalizacion, attributes.pase_corto, attributes.tiro_lejano, null, null, null, null, null ], backgroundColor: 'rgba(46, 134, 222, 0.2)', borderColor: 'rgb(46, 134, 222)', pointBackgroundColor: 'rgb(46, 134, 222)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'rgb(46, 134, 222)', borderWidth: 2, spanGaps: false, tension: 0.1 },
-                 { label: 'Táctico/Mental', data: [ null, null, null, null, null, null, null, null, null, null, attributes.posicionamiento, attributes.vision, attributes.trabajo, attributes.decision, attributes.anticipacion ], backgroundColor: 'rgba(38, 222, 129, 0.2)', borderColor: 'rgb(38, 222, 129)', pointBackgroundColor: 'rgb(38, 222, 129)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'rgb(38, 222, 129)', borderWidth: 2, spanGaps: false, tension: 0.1 }
-            ]
-         };
-        const chartOptions = { /* ... (opciones del radar como antes) ... */
+        const chartOptions = {
             maintainAspectRatio: false, scales: { r: { beginAtZero: true, min: 0, max: 100, ticks: { stepSize: 20, color: 'rgba(160, 160, 160, 0.8)', backdropColor: 'rgba(0, 0, 0, 0)', font: { size: 10 } }, grid: { color: 'rgba(160, 160, 160, 0.2)' }, angleLines: { color: 'rgba(160, 160, 160, 0.2)' }, pointLabels: { color: 'rgba(224, 224, 224, 0.8)', font: { size: 11 } } } }, plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(0, 0, 0, 0.8)', titleColor: '#fff', bodyColor: '#fff', borderColor: 'rgba(255, 255, 255, 0.3)', borderWidth: 1, displayColors: true, padding: 10, filter: function (tooltipItem) { return tooltipItem.raw !== null; }, callbacks: { label: function(context) { let label = context.dataset.label || ''; if (label) { label += ': '; } if (context.parsed.r !== null) { label += context.parsed.r; } return label; } } } }, interaction: { mode: 'index', intersect: false },
          };
         // --- Fin Configuración Radar ---
