@@ -50,27 +50,26 @@ const PhysicalTabContent = ({ playerData }) => {
     agilidad: playerData.agilidad ?? 0,
     fuerza: playerData.fuerza ?? 0,
     resistencia: playerData.resistencia ?? 0,
-    salto: playerData.salto ?? 0,
+    // salto: playerData.salto ?? 0, // Removed salto
     // Añade aquí otros atributos físicos si los tienes en el modelo/serializer
     // ej: equilibrio, coordinacion (si son numéricos 0-100)
   };
 
   // Valores formateados (si los tienes en el backend o los calculas aquí)
-  // Estos son ejemplos basados en el mockup, necesitarás la lógica o datos reales
+  // Placeholder calculations are suffixed with "(calc.)"
   const formattedValues = {
-    velocidadMax: playerData.velocidad_max_kmh || `${physicalAttrs.velocidad}+`, // Ejemplo
-    aceleracion: playerData.aceleracion_0_20m || `${(100 - physicalAttrs.velocidad) / 10 + 2}s`, // Ejemplo muy básico
-    agilidadTest: playerData.agilidad_t_test || `${(100 - physicalAttrs.agilidad) / 10 + 8}s`, // Ejemplo muy básico
-    cambioDireccion: playerData.cambio_direccion_5105 || `${(100 - physicalAttrs.agilidad) / 15 + 4}s`, // Ejemplo
-    saltoVertical: playerData.salto_vertical_cm || `${physicalAttrs.salto} cm`, // Ejemplo
-    saltoHorizontal: playerData.salto_horizontal_m || `${physicalAttrs.salto / 30 + 1.5} m`, // Ejemplo
-    fuerzaRelativa: playerData.fuerza_relativa_1rm || `${physicalAttrs.fuerza / 50 + 1}x`, // Ejemplo
-    potenciaPico: playerData.potencia_pico_wkg || `${physicalAttrs.fuerza * 0.8} W/kg`, // Ejemplo
-    vo2Max: playerData.vo2_max || `${physicalAttrs.resistencia + 10} ml/kg/min`, // Ejemplo
-    yoyoTest: playerData.yoyo_ir1_level || `Nivel ${physicalAttrs.resistencia / 5 + 10}`, // Ejemplo
-    distanciaMedia: playerData.distancia_media_km || `${physicalAttrs.resistencia / 10 + 8} km`, // Ejemplo
-    equilibrioEstatico: playerData.equilibrio_estatico || (physicalAttrs.agilidad > 75 ? 'Bueno' : 'Satisfactorio'), // Ejemplo
-    equilibrioDinamico: playerData.equilibrio_dinamico || (physicalAttrs.agilidad > 65 ? 'Satisfactorio' : 'Mejorable'), // Ejemplo
+    velocidadMax: playerData.velocidad_max_kmh || `${physicalAttrs.velocidad} Km/h (calc.)`,
+    aceleracion: playerData.aceleracion_0_20m || `${((100 - physicalAttrs.velocidad) / 10 + 2).toFixed(1)}s (calc.)`,
+    agilidadTest: playerData.agilidad_t_test || `${((100 - physicalAttrs.agilidad) / 10 + 8).toFixed(1)}s (calc.)`,
+    cambioDireccion: playerData.cambio_direccion_5105 || `${((100 - physicalAttrs.agilidad) / 15 + 4).toFixed(1)}s (calc.)`,
+    // saltoVertical and saltoHorizontal removed as 'salto' attribute is removed
+    fuerzaRelativa: playerData.fuerza_relativa_1rm || `${(physicalAttrs.fuerza / 50 + 1).toFixed(1)}x (calc.)`,
+    potenciaPico: playerData.potencia_pico_wkg || `${(physicalAttrs.fuerza * 0.8).toFixed(1)} W/kg (calc.)`,
+    vo2Max: playerData.vo2_max || `${physicalAttrs.resistencia + 10} ml/kg/min (calc.)`,
+    yoyoTest: playerData.yoyo_ir1_level || `Nivel ${(physicalAttrs.resistencia / 5 + 10).toFixed(0)} (calc.)`,
+    distanciaMedia: playerData.distancia_media_km || `${(physicalAttrs.resistencia / 10 + 8).toFixed(1)} km (calc.)`,
+    equilibrioEstatico: playerData.equilibrio_estatico || (physicalAttrs.agilidad > 75 ? 'Bueno (calc.)' : 'Satisfactorio (calc.)'),
+    equilibrioDinamico: playerData.equilibrio_dinamico || (physicalAttrs.agilidad > 65 ? 'Satisfactorio (calc.)' : 'Mejorable (calc.)'),
   };
 
 
@@ -94,8 +93,7 @@ const PhysicalTabContent = ({ playerData }) => {
           <div className="section-header">
             <FontAwesomeIcon icon={faDumbbell} /> Fuerza y Potencia
           </div>
-          <AttributeItem label="Salto Vertical (CMJ)" value={formattedValues.saltoVertical} rawValue={physicalAttrs.salto} unit="cm" />
-          <AttributeItem label="Salto Horizontal" value={formattedValues.saltoHorizontal} rawValue={physicalAttrs.salto} unit="m" /> {/* Usa salto para barra? */}
+          {/* Removed AttributeItems for Salto Vertical and Salto Horizontal */}
           <AttributeItem label="Fuerza Relativa (1RM Squat/Peso)" value={formattedValues.fuerzaRelativa} rawValue={physicalAttrs.fuerza} unit="x" />
           <AttributeItem label="Potencia Pico (W/kg)" value={formattedValues.potenciaPico} rawValue={physicalAttrs.fuerza} unit="W/kg" /> {/* Usa fuerza para barra? */}
         </div>
@@ -127,7 +125,7 @@ PhysicalTabContent.propTypes = {
     agilidad: PropTypes.number,
     fuerza: PropTypes.number,
     resistencia: PropTypes.number,
-    salto: PropTypes.number,
+    // salto: PropTypes.number, // Removed salto from PropTypes
     // Añade aquí todos los demás campos físicos que esperas recibir
     reports: PropTypes.array, // Asegúrate de incluir esto si ProfileTabs lo necesita para otra pestaña
     // ... otros campos de playerData
