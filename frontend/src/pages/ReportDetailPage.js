@@ -114,6 +114,11 @@ function ReportDetailPage() {
         tags_list = []
     } = reportData;
 
+    // Construct displayTitle
+    const displayTitle = reportData.match_observed 
+                       ? `${reportData.match_observed} (${reportData.report_specialization_display || 'General'})`
+                       : `${reportData.report_specialization_display || 'Informe'} para ${reportData.player_name || 'Jugador Desconocido'}`;
+
     return (
         <div className="report-detail-page card"> {/* Usar clase card como base */}
             {/* Botón Volver (opcional) */}
@@ -122,7 +127,7 @@ function ReportDetailPage() {
             </Link>
 
             {/* Cabecera del Informe */}
-            <h1 className="report-detail-title">{title || 'Informe sin Título'}</h1>
+            <h1 className="report-detail-title">{displayTitle}</h1>
             <div className="report-detail-meta">
                 <span>
                     <FontAwesomeIcon icon={faUser} /> Autor: <strong>{scout_username || 'Desconocido'}</strong>
