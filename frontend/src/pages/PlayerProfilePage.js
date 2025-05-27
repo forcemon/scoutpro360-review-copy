@@ -32,8 +32,9 @@ const PlayerProfilePage = () => {
       setError(null);
       try {
         const data = await fetchPlayerDetail(playerId);
+        console.log('[PlayerProfilePage] RAW PLAYER DATA FROM API:', JSON.stringify(data, null, 2)); // <--- ADDED THIS
         // console.log('[PlayerProfilePage] Datos recibidos para el perfil:', data); // Original log, can be kept or removed.
-        console.log('[PlayerProfilePage] Datos del jugador establecidos en el estado:', data); // <--- ADDED THIS
+        console.log('[PlayerProfilePage] Datos del jugador establecidos en el estado:', data); 
         setPlayerData(data);
 
         if (data && data.id) { // Ensure playerData and its id is available

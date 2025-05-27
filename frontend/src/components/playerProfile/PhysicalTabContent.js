@@ -31,7 +31,7 @@ AttributeItem.propTypes = {
 };
 
 const PhysicalTabContent = ({ playerData }) => {
-  console.log('[PhysicalTabContent] playerData recibida:', playerData); // <--- ADD THIS
+  console.log('[PhysicalTabContent] PROPS RECEIVED - playerData:', JSON.stringify(playerData, null, 2));
   if (!playerData) {
     return <div className="physical-tab-content card"><p>Cargando datos físicos...</p></div>;
   }
@@ -50,7 +50,7 @@ const PhysicalTabContent = ({ playerData }) => {
     aceleracion: playerData.aceleracion_0_20m_secs != null ? `${playerData.aceleracion_0_20m_secs}` : 'N/A',
     agilidadTest: playerData.agilidad_t_test_secs != null ? `${playerData.agilidad_t_test_secs}` : 'N/A',
     cambioDireccion: playerData.cambio_direccion_5105_secs != null ? `${playerData.cambio_direccion_5105_secs}` : 'N/A',
-    saltoVertical: 'N/A', // No specific field in model for CMJ in cm, showing N/A as per image
+    saltoVertical: playerData.salto_vertical_cmj_cm != null ? `${playerData.salto_vertical_cmj_cm}` : 'N/A',
     saltoHorizontal: playerData.salto_horizontal_m != null ? `${playerData.salto_horizontal_m}` : 'N/A',
     fuerzaRelativa: playerData.fuerza_relativa_1rm_ratio != null ? `${playerData.fuerza_relativa_1rm_ratio}` : 'N/A',
     potenciaPico: playerData.potencia_pico_w_kg != null ? `${playerData.potencia_pico_w_kg}` : 'N/A',
@@ -119,6 +119,7 @@ PhysicalTabContent.propTypes = {
     agilidad_t_test_secs: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     cambio_direccion_5105_secs: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     salto_horizontal_m: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    salto_vertical_cmj_cm: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     fuerza_relativa_1rm_ratio: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     potencia_pico_w_kg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     vo2_max_ml_kg_min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
