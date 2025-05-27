@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import DashboardPage from './pages/DashboardPage';
 import PlayerListPage from './pages/PlayerListPage';
 import PlayerProfilePage from './pages/PlayerProfilePage';
+import PlayerEditPage from './pages/PlayerEditPage'; // Import PlayerEditPage
 import MyReportsPage from './pages/MyReportsPage';
 import ReportDetailPage from './pages/ReportDetailPage'; 
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="players" element={<PlayerListPage />} />
           <Route path="players/:playerId" element={<PlayerProfilePage />} />
+          <Route path="players/:playerId/edit" element={<PlayerEditPage />} /> {/* Add route for PlayerEditPage */}
           <Route path="reports" element={<MyReportsPage />} />
           <Route path="reports/:reportId" element={<ReportDetailPage />} />
           {/* <Route path="*" element={<NotFoundPage />} /> // Opcional */}

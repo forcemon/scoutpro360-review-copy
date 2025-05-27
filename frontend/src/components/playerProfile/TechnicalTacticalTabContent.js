@@ -57,9 +57,13 @@ const TechnicalTacticalTabContent = ({ playerData }) => {
     // Added missing attributes
     entradas: playerData.entradas ?? 0,
     marcaje: playerData.marcaje ?? 0,
-    liderazgo: playerData.liderazgo ?? 0,
+    liderazgo: playerData.liderazgo ?? 0, // Used for Liderazgo
     talento: playerData.talento ?? 0,
     precision_tiro: playerData.precision_tiro ?? 0,
+    // New mental attributes
+    compostura: playerData.compostura ?? 0,
+    concentracion: playerData.concentracion ?? 0,
+    agresividad: playerData.agresividad ?? 0, // Used for Agresividad
     potencia_tiro: playerData.potencia_tiro ?? 0,
   };
 
@@ -77,11 +81,8 @@ const TechnicalTacticalTabContent = ({ playerData }) => {
     precisionTiros: playerData.precision_tiros_pct || `${attrs.precision_tiro}% (calc.)`,
     toquesAreaRival: playerData.toques_area_rival_90min || `${(attrs.posicionamiento / 12).toFixed(1)} /90 (calc.)`,
     habilidadPieDebil: playerData.habilidad_pie_debil_stars || `${Math.min(5, Math.max(1, Math.round(attrs.control / 20)))} ★ (calc.)`,
-    // juegoAereoOf, compostura, concentracion removed as their source attributes (salto, decision) were removed.
-    agresividad: playerData.agresividad_eval || (attrs.fuerza > 70 ? 'Controlada (calc.)' : 'Normal (calc.)'),
-    liderazgoPotencial: playerData.liderazgo_potencial_eval || (attrs.liderazgo > 70 ? 'Alto (calc.)' : (attrs.liderazgo > 50 ? 'Medio (calc.)' : 'Bajo (calc.)')),
+    // juegoAereoOf removed. compostura, concentracion, agresividad, liderazgo will use direct playerData values.
   };
-
 
   return (
     <div className="technical-tactical-tab-content card">
@@ -124,9 +125,10 @@ const TechnicalTacticalTabContent = ({ playerData }) => {
           <div className="section-header">
             <FontAwesomeIcon icon={faBrain} /> Aspectos Mentales
           </div>
-          {/* AttributeItems for "Compostura" and "Concentración" removed (were using attrs.decision) */}
-          <AttributeItem label="Agresividad" value={formattedValues.agresividad} type="tactical" rawValue={attrs.fuerza} />
-          <AttributeItem label="Liderazgo (Potencial)" value={formattedValues.liderazgoPotencial} type="tactical" rawValue={attrs.liderazgo} />
+          <AttributeItem label="Compostura" value={attrs.compostura} type="tactical" rawValue={attrs.compostura} />
+          <AttributeItem label="Concentración" value={attrs.concentracion} type="tactical" rawValue={attrs.concentracion} />
+          <AttributeItem label="Agresividad" value={attrs.agresividad} type="tactical" rawValue={attrs.agresividad} />
+          <AttributeItem label="Liderazgo" value={attrs.liderazgo} type="tactical" rawValue={attrs.liderazgo} />
         </div>
       </div>
     </div>
@@ -149,10 +151,14 @@ TechnicalTacticalTabContent.propTypes = {
     // salto: PropTypes.number, // Removed
     entradas: PropTypes.number, // Added
     marcaje: PropTypes.number, // Added
-    liderazgo: PropTypes.number, // Added
-    talento: PropTypes.number, // Added
-    precision_tiro: PropTypes.number, // Added
-    potencia_tiro: PropTypes.number, // Added
+    liderazgo: PropTypes.number,
+    talento: PropTypes.number,
+    precision_tiro: PropTypes.number,
+    potencia_tiro: PropTypes.number,
+    // Added new mental attributes to PropTypes
+    compostura: PropTypes.number,
+    concentracion: PropTypes.number,
+    agresividad: PropTypes.number,
     reports: PropTypes.array,
   }),
 };

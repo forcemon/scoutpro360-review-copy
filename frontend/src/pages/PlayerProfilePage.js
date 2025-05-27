@@ -1,6 +1,6 @@
 // frontend/src/pages/PlayerProfilePage.js
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { fetchPlayerDetail } from '../services/playerService'; // Verifica ruta y nombre
 import { fetchReports } from '../services/reportService'; // Import fetchReports
 // Changed: Ya no se necesita importar Layout aquí
@@ -12,6 +12,7 @@ import './PlayerProfilePage.css'; // Verifica ruta
 
 const PlayerProfilePage = () => {
   const { playerId } = useParams();
+  const navigate = useNavigate(); // Initialize useNavigate
   const [playerData, setPlayerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -84,6 +85,14 @@ const PlayerProfilePage = () => {
   return (
     <div className="player-profile-page">
       <ProfileHeader playerData={playerData} />
+      <div className="profile-actions"> {/* Container for action buttons */}
+        <button 
+          className="edit-player-button" 
+          onClick={() => navigate(`/players/${playerId}/edit`)} // Update onClick handler
+        >
+          Editar Jugador
+        </button>
+      </div>
       {/* ProfileTabs recibe playerData y renderiza las pestañas (General, Stats, etc.) */}
       <ProfileTabs playerData={playerData} lastReport={lastReport} lastReportLoading={lastReportLoading} />
     </div>
