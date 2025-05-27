@@ -20,6 +20,26 @@ export const fetchPlayers = async (params) => {
 };
 
 /**
+ * Actualiza los datos de un jugador específico en la API.
+ * @param {string|number} playerId - El ID del jugador a actualizar.
+ * @param {object} playerData - Objeto con los campos del jugador a actualizar.
+ * @returns {Promise<object>} Promesa que resuelve con los datos del jugador actualizado.
+ */
+export const updatePlayer = async (playerId, playerData) => {
+  console.log(`[playerService] updatePlayer llamado para ID: ${playerId} con datos:`, playerData);
+  try {
+    // Asegúrate de que la URL termina en /
+    const response = await api.patch(`/players/${playerId}/`, playerData);
+    console.log('[playerService] Respuesta completa de Axios (actualización):', response);
+    return response.data; // Devuelve los datos del jugador actualizado
+  } catch (error) {
+    console.error(`[playerService] Error en updatePlayer para ID ${playerId}:`, error.response ? error.response.data : error.message, error);
+    // Relanzamos el error para que lo capture el componente
+    throw error;
+  }
+};
+
+/**
  * Obtiene los detalles de un jugador específico desde la API.
  * @param {string|number} playerId - El ID del jugador.
  * @returns {Promise<object>} Promesa que resuelve con los datos del jugador.

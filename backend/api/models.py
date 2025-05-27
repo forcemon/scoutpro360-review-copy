@@ -122,6 +122,33 @@ class Player(models.Model):
     entradas = models.PositiveIntegerField(default=50, help_text="(0-100)", verbose_name="Entradas")
     talento = models.PositiveIntegerField(default=50, help_text="(0-100)", verbose_name="Talento/Creatividad")
 
+    # --- Atributos Físicos Detallados ---
+    salto_horizontal_m = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, verbose_name="Salto Horizontal (m)")
+    velocidad_max_kmh = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name="Velocidad Máxima (km/h)")
+    aceleracion_0_20m_secs = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, verbose_name="Aceleración 0-20m (s)")
+    agilidad_t_test_secs = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, verbose_name="Agilidad T-Test (s)")
+    cambio_direccion_5105_secs = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, verbose_name="Cambio de Dirección 5-10-5 (s)")
+    fuerza_relativa_1rm_ratio = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, verbose_name="Fuerza Relativa 1RM (ratio peso corporal)")
+    potencia_pico_w_kg = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True, verbose_name="Potencia Pico (W/kg)")
+    vo2_max_ml_kg_min = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name="VO2 Máx (ml/kg/min)")
+    yoyo_ir1_level = models.CharField(max_length=10, blank=True, null=True, verbose_name="Yo-Yo IR1 Nivel (ej: 18.5)")
+    distancia_media_km_90min = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name="Distancia Media Recorrida (km/90min)")
+    evaluacion_equilibrio_estatico = models.CharField(max_length=50, blank=True, null=True, verbose_name="Evaluación Equilibrio Estático (ej: Bueno, Necesita Mejora)")
+    evaluacion_equilibrio_dinamico = models.CharField(max_length=50, blank=True, null=True, verbose_name="Evaluación Equilibrio Dinámico (ej: Bueno, Necesita Mejora)")
+
+    # --- Atributos Mentales ---
+    compostura = models.PositiveIntegerField(default=50, help_text="(0-100)", verbose_name="Compostura")
+    concentracion = models.PositiveIntegerField(default=50, help_text="(0-100)", verbose_name="Concentración")
+    agresividad = models.PositiveIntegerField(default=50, help_text="(0-100)", verbose_name="Agresividad (Deportiva)")
+
+    # --- Estadísticas Clave (Últimos 365 días) ---
+    goles_365 = models.PositiveIntegerField(null=True, blank=True, verbose_name="Goles (últimos 365 días)")
+    asistencias_365 = models.PositiveIntegerField(null=True, blank=True, verbose_name="Asistencias (últimos 365 días)")
+    xg_per_90_365 = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, verbose_name="xG por 90 min (últimos 365 días)")
+    pases_completados_pct_365 = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, verbose_name="% Pases Completados (últimos 365 días)")
+    regates_per_90_365 = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, verbose_name="Regates Exitosos por 90 min (últimos 365 días)")
+    partidos_jugados_365 = models.PositiveIntegerField(null=True, blank=True, verbose_name="Partidos Jugados (últimos 365 días)")
+
     CONTRACT_STATUS_CHOICES = [
         ('ACTIVE', 'Contrato Vigente'),
         ('LOANED_OUT', 'Cedido (Saliendo)'),
