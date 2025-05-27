@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// Added faChartLine back for the title
 import { faFutbol, faBullseye, faRunning, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import './KeyStatsHighlight.css';
 
@@ -13,27 +12,27 @@ const KeyStatsHighlight = ({ playerData }) => {
 
   const stats = [
     {
-      label: 'Partidos Jugados', // Removed (365 días) to match image 09181c.png
+      label: 'Partidos Jugados',
       value: playerData.partidos_jugados_365 !== undefined ? playerData.partidos_jugados_365 : 'N/A',
       icon: faRunning,
       unit: '',
     },
     {
-      label: 'Goles', // Removed (365 días)
+      label: 'Goles',
       value: playerData.goles_365 !== undefined ? playerData.goles_365 : 'N/A',
       icon: faFutbol,
       unit: '',
     },
     {
-      label: 'Asistencias', // Removed (365 días)
+      label: 'Asistencias',
       value: playerData.asistencias_365 !== undefined ? playerData.asistencias_365 : 'N/A',
       icon: faBullseye,
       unit: '',
     },
     {
-      label: 'xG por 90 min', // Added Expected Goals
+      label: 'xG por 90 min',
       value: playerData.xg_per_90_365 !== undefined ? parseFloat(playerData.xg_per_90_365).toFixed(2) : 'N/A',
-      icon: faChartLine, // Using faChartLine for xG
+      icon: faChartLine,
       unit: '',
     },
   ];
@@ -42,7 +41,6 @@ const KeyStatsHighlight = ({ playerData }) => {
 
   return (
     <div className="key-stats-highlight-card card">
-      {/* Added icon and new class "highlighted-title" */}
       <div className="card-title highlighted-title">
         <FontAwesomeIcon icon={faChartLine} />
         Estadísticas Clave (Últimos 365 días)
@@ -71,10 +69,10 @@ const KeyStatsHighlight = ({ playerData }) => {
 
 KeyStatsHighlight.propTypes = {
   playerData: PropTypes.shape({
-    partidos_jugados_365: PropTypes.number, // Updated field name
-    goles_365: PropTypes.number,           // Updated field name
-    asistencias_365: PropTypes.number,     // Updated field name
-    xg_per_90_365: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Added
+    partidos_jugados_365: PropTypes.number,
+    goles_365: PropTypes.number,
+    asistencias_365: PropTypes.number,
+    xg_per_90_365: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
 };
 
