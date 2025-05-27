@@ -13,38 +13,54 @@ const generateLogoUrl = (name) => {
 };
 
 function RecentHistory({ playerData }) {
+    let historyEvents = [];
 
-    // --- IMPORTANTE: Usando Datos de Ejemplo Temporalmente ---
-    // El historial completo de clubes requeriría un modelo relacionado en el backend
-    // (ej: PlayerClubHistory) que no existe actualmente.
-    // Usamos el club actual de playerData y añadimos otros de ejemplo.
-    const currentClub = playerData?.team?.name || 'Club Actual Desc.'; // Corregido para acceder a team.name
-    const placeholderHistory = [
-        {
-            name: currentClub,
-            period: '2023 - Actual', // Asumir un periodo para el actual
-            logo: generateLogoUrl(currentClub),
-            stats: 'PJ: ? Goles: ?' // Stats necesitarían venir de otra fuente
-        },
-        {
-            name: 'SC Atlético', // Ejemplo
-            period: '2020 - 2023',
-            logo: generateLogoUrl('SCA'),
-            stats: '87 PJ / 38 Goles' // Ejemplo
-        },
-         {
-            name: 'CD Sevilla Juvenil', // Ejemplo
-            period: '2018 - 2020',
-            logo: generateLogoUrl('CDS'),
-            stats: 'Juvenil' // Ejemplo
-        },
-        // ... más historial si se quisiera mostrar más
-    ];
+    if (playerData) {
+        // Current Team Info
+        if (playerData.team_name) { // team_name is directly available from PlayerSerializer
+            const currentTeamPeriod = playerData.contract_until ? `Hasta ${new Date(playerData.contract_until).toLocaleDateString()}` : 'Actual';
+            // Assuming team_details might contain the logo, if not, team_logo_url would be a direct prop.
+            // For now, let's assume PlayerSerializer provides team_details.logo_url if available.
+            // If PlayerSerializer provides team_logo_url directly on playerData, that's simpler.
+            // Given PlayerSerializer structure, team_details might not be standard for the direct current team.
+            // Let's try to get logo from playerData.team_details if it exists (it's not in current PlayerSerializer for current team),
+            // or a hypothetical playerData.team_logo_url. Fallback to generateLogoUrl.
+            // The most robust from current PlayerSerializer is `playerData.team.logo_url` if `team` was an object, but it's set to `team_name`.
+            // So, if `playerData.team` itself is an object:
+            const teamLogo = playerData.team?.logo_url || generateLogoUrl(playerData.team_name);
 
-    // TODO: Reemplazar placeholderHistory con datos reales cuando el backend los proporcione
-    // const history = playerData?.club_history || placeholderHistory;
-    const history = placeholderHistory;
-    // --- Fin Datos de Ejemplo ---
+            historyEvents.push({
+                name: playerData.team_name,
+                period: currentTeamPeriod,
+                logo: teamLogo, 
+                stats: 'Club Actual',
+                type: 'current'
+            });
+        }
+
+        // Loan Information
+        if (playerData.contract_status === 'LOANED_OUT' && playerData.loan_destination_team_details) {
+            historyEvents.push({
+                name: `Cedido a: ${playerData.loan_destination_team_details.name}`,
+                period: playerData.contract_until ? `Hasta ${new Date(playerData.contract_until).toLocaleDateString()}` : 'Préstamo',
+                logo: playerData.loan_destination_team_details.logo_url || generateLogoUrl(playerData.loan_destination_team_details.name),
+                stats: 'En Préstamo',
+                type: 'loan_out'
+            });
+        }
+
+        if (playerData.contract_status === 'LOANED_IN' && playerData.loan_origin_team_details) {
+            historyEvents.push({
+                name: `Cedido de: ${playerData.loan_origin_team_details.name}`,
+                period: 'Actual (Préstamo)', // Or specific loan end date if available
+                logo: playerData.loan_origin_team_details.logo_url || generateLogoUrl(playerData.loan_origin_team_details.name),
+                stats: 'En Préstamo (Aquí)',
+                type: 'loan_in'
+            });
+        }
+    }
+    
+    const history = historyEvents; // Use the dynamically constructed events
 
     // Limitar a mostrar solo los N más recientes en esta preview
     const historyToShow = history.slice(0, 2); // Mostrar máximo 2 aquí
@@ -91,17 +107,21 @@ function RecentHistory({ playerData }) {
 
 RecentHistory.propTypes = {
     playerData: PropTypes.shape({
-        // current_club: PropTypes.string, // El modelo Player ahora tiene 'team'
-        team: PropTypes.shape({ name: PropTypes.string }), // Acceder a través de team
-        // Se esperaría algo como:
-        // club_history: PropTypes.arrayOf(PropTypes.shape({
-        //     name: PropTypes.string,
-        //     period_start: PropTypes.string,
-        //     period_end: PropTypes.string,
-        //     logo_url: PropTypes.string,
-        //     matches_played: PropTypes.number,
-        //     goals: PropTypes.number,
-        // }))
+        team_name: PropTypes.string, // Direct from PlayerSerializer
+        team: PropTypes.shape({ // If team object is passed (not typical for team_name scenario)
+            logo_url: PropTypes.string,
+        }),
+        contract_until: PropTypes.string,
+        contract_status: PropTypes.string,
+        loan_destination_team_details: PropTypes.shape({
+            name: PropTypes.string,
+            logo_url: PropTypes.string,
+        }),
+        loan_origin_team_details: PropTypes.shape({
+            name: PropTypes.string,
+            logo_url: PropTypes.string,
+        }),
+        // id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Example if needed by Link
     }),
 };
 

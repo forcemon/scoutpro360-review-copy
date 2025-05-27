@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchPlayerDetail } from '../services/playerService'; // Verifica ruta y nombre
+import { fetchReports } from '../services/reportService'; // Import fetchReports
 // Changed: Ya no se necesita importar Layout aquí
 // import Layout from '../layouts/Layout';
 import ProfileHeader from '../components/playerProfile/ProfileHeader';
@@ -14,6 +15,8 @@ const PlayerProfilePage = () => {
   const [playerData, setPlayerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [lastReport, setLastReport] = useState(null);
+  const [lastReportLoading, setLastReportLoading] = useState(false);
 
   useEffect(() => {
     const loadPlayerData = async () => {
@@ -30,6 +33,25 @@ const PlayerProfilePage = () => {
         const data = await fetchPlayerDetail(playerId);
         console.log('[PlayerProfilePage] Datos recibidos para el perfil:', data);
         setPlayerData(data);
+
+        if (data && data.id) { // Ensure playerData and its id is available
+            setLastReportLoading(true);
+            try {
+                const reportResponse = await fetchReports({ player: data.id, ordering: '-report_date', page_size: 1 });
+                if (reportResponse && reportResponse.results && reportResponse.results.length > 0) {
+                    setLastReport(reportResponse.results[0]);
+                } else {
+                    setLastReport(null); // No reports found
+                }
+            } catch (reportErr) {
+                console.error('[PlayerProfilePage] Error fetching last report:', reportErr);
+                // Optionally set a specific error state for the last report
+                // setError('No se pudo cargar el último informe.'); // Or a more general error
+                setLastReport(null);
+            } finally {
+                setLastReportLoading(false);
+            }
+        }
       } catch (err) {
         console.error('[PlayerProfilePage] Error completo al cargar datos del jugador:', err);
          // Español
@@ -63,7 +85,7 @@ const PlayerProfilePage = () => {
     <div className="player-profile-page">
       <ProfileHeader playerData={playerData} />
       {/* ProfileTabs recibe playerData y renderiza las pestañas (General, Stats, etc.) */}
-      <ProfileTabs playerData={playerData} />
+      <ProfileTabs playerData={playerData} lastReport={lastReport} lastReportLoading={lastReportLoading} />
     </div>
   );
 };

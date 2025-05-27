@@ -12,6 +12,11 @@ const ReportCard = ({ report, onReportClick }) => { // Added onReportClick
   const summary = report.summary || (report.content ? `${report.content.substring(0, 80)}...` : 'Sin resumen.');
   const ratingValue = report.overall_rating;
 
+  // Construct displayTitle
+  const displayTitle = report.match_observed 
+                     ? `${report.match_observed} (${report.report_specialization_display || 'General'})`
+                     : `${report.report_specialization_display || 'Informe'} para ${report.player_name || 'Jugador Desconocido'}`;
+
   // Use the passed onReportClick prop if available
   const handleCardClick = () => {
     if (onReportClick) {
@@ -46,7 +51,7 @@ const ReportCard = ({ report, onReportClick }) => { // Added onReportClick
   return (
     <div className="report-card" onClick={handleCardClick} style={{ cursor: onReportClick ? 'pointer' : 'default' }}>
       <div className="report-card-header">
-        <h3 className="report-card-title">{report.title || 'Informe sin título'}</h3>
+        <h3 className="report-card-title">{displayTitle}</h3>
         <span className="report-card-date">{reportDate}</span>
       </div>
       <p className="report-card-author">Por: {authorName}</p>
@@ -67,16 +72,19 @@ import PropTypes from 'prop-types';
 ReportCard.propTypes = {
   report: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    title: PropTypes.string,
-    created_at: PropTypes.string, // Assuming this might still be used as fallback
-    report_date: PropTypes.string, // Added report_date
-    author_info: PropTypes.shape({ username: PropTypes.string }),
-    scout_username: PropTypes.string, // Added scout_username from direct serializer field
+    // title: PropTypes.string, // Removed as it's no longer directly used for display
+    match_observed: PropTypes.string,
+    report_specialization_display: PropTypes.string,
+    player_name: PropTypes.string,
+    created_at: PropTypes.string, 
+    report_date: PropTypes.string, 
+    author_info: PropTypes.shape({ username: PropTypes.string }), // Kept if still part of underlying data
+    scout_username: PropTypes.string, 
     summary: PropTypes.string,
-    content: PropTypes.string,
+    content: PropTypes.string, // Kept if used for summary fallback
     overall_rating: PropTypes.number,
   }).isRequired,
-  onReportClick: PropTypes.func, // Make onReportClick a prop
+  onReportClick: PropTypes.func,
 };
 
 export default ReportCard;

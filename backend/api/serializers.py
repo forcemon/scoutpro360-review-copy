@@ -124,7 +124,7 @@ class ReportSerializer(serializers.ModelSerializer):
         model = Report
         fields = [
             'id', 'player_id', 'player_name', 'scout_id', 'scout_username', 'report_date',
-            'title', # Added title field
+            # 'title', # Removed title field as per instruction
             'report_specialization', 'report_specialization_display',
             'summary_report_parent_id', 
             'match_observed', 'overall_rating', 'overall_rating_on_5_scale', 'potential_rating',
