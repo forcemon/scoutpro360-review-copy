@@ -85,14 +85,6 @@ const PlayerProfilePage = () => {
   return (
     <div className="player-profile-page">
       <ProfileHeader playerData={playerData} />
-      <div className="profile-actions"> {/* Container for action buttons */}
-        <button 
-          className="edit-player-button" 
-          onClick={() => navigate(`/players/${playerId}/edit`)} // Update onClick handler
-        >
-          Editar Jugador
-        </button>
-      </div>
       {/* ProfileTabs recibe playerData y renderiza las pestañas (General, Stats, etc.) */}
       <ProfileTabs playerData={playerData} lastReport={lastReport} lastReportLoading={lastReportLoading} />
     </div>
