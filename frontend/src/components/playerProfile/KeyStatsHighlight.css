@@ -1,0 +1,80 @@
+/* frontend/src/components/playerProfile/KeyStatsHighlight.css */
+.key-stats-highlight-card {
+  background-color: var(--neutral-color-800, #2a2f37); /* Fallback color */
+  padding: 1rem;
+  border-radius: var(--border-radius-md, 8px);
+  color: var(--text-color-light, #e0e0e0);
+  margin-bottom: 1rem; /* Consistent with other cards */
+}
+
+.key-stats-highlight-card .card-title {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--text-color-light, #eee);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--neutral-color-700, #444);
+}
+
+.key-stats-highlight-card.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-color-secondary, #aaa);
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item-highlight {
+  background-color: var(--neutral-color-750, #313742); /* Slightly lighter than card bg */
+  padding: 1rem;
+  border-radius: var(--border-radius-sm, 6px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon-highlight {
+  font-size: 1.8em; /* Larger icon */
+  margin-bottom: 0.5rem;
+  color: var(--primary-color-400, #4A90E2); /* Example primary color for icons */
+}
+
+/* Specific icon colors if needed */
+.stat-item-highlight:nth-child(1) .stat-icon-highlight { color: var(--accent-color-running, #50E3C2); } /* Partidos Jugados */
+.stat-item-highlight:nth-child(2) .stat-icon-highlight { color: var(--accent-color-goals, #F5A623); }   /* Goles */
+.stat-item-highlight:nth-child(3) .stat-icon-highlight { color: var(--accent-color-assists, #7ED321); } /* Asistencias */
+.stat-item-highlight:nth-child(4) .stat-icon-highlight { color: var(--accent-color-xg, #BD10E0); }      /* xG (if used) */
+
+
+.stat-value-highlight {
+  font-size: 1.5em; /* Prominent value */
+  font-weight: bold;
+  color: var(--text-color-light, #fff);
+  margin-bottom: 0.25rem;
+}
+
+.stat-unit-highlight {
+  font-size: 0.7em;
+  margin-left: 0.25rem;
+  color: var(--text-color-secondary, #aaa);
+}
+
+.stat-label-highlight {
+  font-size: 0.8em;
+  color: var(--text-color-secondary, #ccc);
+  line-height: 1.2;
+}
+
+.no-stats-available {
+    grid-column: 1 / -1; /* Span across all columns if grid is empty */
+    text-align: center;
+    color: var(--text-color-secondary, #aaa);
+    padding: 1rem 0;
+    font-style: italic;
+}

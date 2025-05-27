@@ -32,7 +32,7 @@ const TABS_CONFIG = [
   { id: 'compare', label: 'Comparar', icon: faExchangeAlt, component: CompareTabContent },
 ];
 
-const ProfileTabs = ({ playerData }) => {
+const ProfileTabs = ({ playerData, lastReport, lastReportLoading }) => {
   // Estado interno para manejar la pestaña activa
   const [activeTabId, setActiveTabId] = useState(TABS_CONFIG[0].id); // Inicia con la primera pestaña
 
@@ -68,8 +68,12 @@ const ProfileTabs = ({ playerData }) => {
       <div className="tab-content">
         {/* Renderiza el componente correspondiente si existe */}
         {ActiveTabContentComponent ? (
-            // Pasa playerData al componente de contenido activo
-            <ActiveTabContentComponent playerData={playerData} />
+            // Pasa playerData y report data al componente de contenido activo
+            <ActiveTabContentComponent 
+                playerData={playerData} 
+                lastReport={lastReport} 
+                lastReportLoading={lastReportLoading} 
+            />
         ) : (
             <div>Contenido no encontrado</div> // Mensaje de fallback
         )}
@@ -81,6 +85,8 @@ const ProfileTabs = ({ playerData }) => {
 // Añadir PropTypes
 ProfileTabs.propTypes = {
     playerData: PropTypes.object.isRequired, // playerData es esencial para las pestañas
+    lastReport: PropTypes.object, // Can be null if no report or still loading
+    lastReportLoading: PropTypes.bool,
 };
 
 

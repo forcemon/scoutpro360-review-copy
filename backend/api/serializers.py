@@ -35,6 +35,11 @@ class PlayerSerializer(serializers.ModelSerializer):
     loan_origin_team_details = TeamSerializer(source='loan_origin_team', read_only=True, allow_null=True)
     loan_destination_team_details = TeamSerializer(source='loan_destination_team', read_only=True, allow_null=True)
 
+    # Placeholder Key Performance Statistics
+    goles_365_dias = serializers.SerializerMethodField(read_only=True)
+    asistencias_365_dias = serializers.SerializerMethodField(read_only=True)
+    partidos_jugados_365_dias = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Player
         fields = [
@@ -56,13 +61,15 @@ class PlayerSerializer(serializers.ModelSerializer):
             'loan_origin_team', 'loan_origin_team_details', # Campo ForeignKey para escribir
             'loan_destination_team', 'loan_destination_team_details', # Campo ForeignKey para escribir
             'agency_representing',
+            'goles_365_dias', 'asistencias_365_dias', 'partidos_jugados_365_dias', # Added placeholder stats
             'created_at', 'updated_at'
         ]
         read_only_fields = (
             'calculated_age', 'created_at', 'updated_at',
             'position1_display', 'position2_display', 'position3_display',
             'team_name', 'contract_status_display',
-            'loan_origin_team_details', 'loan_destination_team_details'
+            'loan_origin_team_details', 'loan_destination_team_details',
+            'goles_365_dias', 'asistencias_365_dias', 'partidos_jugados_365_dias' # Added placeholder stats
         )
         extra_kwargs = {
             'team': {'read_only': True}, # El objeto completo es solo lectura, se usa team_id para escribir
@@ -78,6 +85,18 @@ class PlayerSerializer(serializers.ModelSerializer):
 
     def get_position3_display(self, obj):
         return POSITION_MAP.get(obj.position3, obj.position3) if obj.position3 else None
+
+    def get_goles_365_dias(self, obj):
+        # Placeholder value
+        return 12 
+
+    def get_asistencias_365_dias(self, obj):
+        # Placeholder value
+        return 8
+
+    def get_partidos_jugados_365_dias(self, obj):
+        # Placeholder value
+        return 25
 
 
 class ReportAttachmentSerializer(serializers.ModelSerializer):
