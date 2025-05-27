@@ -22,7 +22,8 @@ const PlayerListPage = () => {
   // Usamos useCallback para evitar que esta función se recree en cada render
   // a menos que cambien sus dependencias reales (currentPage, filters, sortConfig).
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // Deshabilitamos la regla aquí: sabemos que no debemos incluir loading/error para evitar bucles.
+  // Deshabilitamos la regla aquí: sabemos que no debemos incluir loading/error para evitar bucles,
+  // ya que son gestionados internamente por la función loadPlayers.
   const loadPlayers = useCallback(async () => {
     console.log('[PlayerListPage] Iniciando loadPlayers. Estado actual:', { loading, error, currentPage, filters, sortConfig });
     setLoading(true);
@@ -67,15 +68,7 @@ const PlayerListPage = () => {
       console.log('[PlayerListPage] Ejecutando finally. Estableciendo loading = false.');
       setLoading(false);
     }
-  }, [currentPage, filters, sortConfig, error, loading]); // Se mantienen las dependencias originales + error y loading para satisfacer la regla por defecto, aunque el comentario original indicaba lo contrario. Si causa bucles, se debe refactorizar o mantener el eslint-disable bien formateado.
-  // CORRECCIÓN: El comentario original para eslint-disable-next-line estaba mal formateado.
-  // La forma correcta es: // eslint-disable-next-line react-hooks/exhaustive-deps
-  // Y luego el comentario descriptivo en otra línea o después.
-  // Manteniendo la intención original del desarrollador de omitir 'loading' y 'error' de las dependencias de useCallback:
-  // eslint-disable-next-line react-hooks/exhaustive-deps 
-  // El comentario original era: // Deshabilitamos la regla aquí: sabemos que no debemos incluir loading/error para evitar bucles.
-  // La forma correcta de deshabilitar es:
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, filters, sortConfig]); // Dependencias correctas: solo aquellas que deben disparar una recarga de datos.
 
   // useEffect que llama a loadPlayers cuando cambian sus dependencias
   useEffect(() => {

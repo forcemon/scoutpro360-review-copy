@@ -32,7 +32,8 @@ const PlayerProfilePage = () => {
       setError(null);
       try {
         const data = await fetchPlayerDetail(playerId);
-        console.log('[PlayerProfilePage] Datos recibidos para el perfil:', data);
+        // console.log('[PlayerProfilePage] Datos recibidos para el perfil:', data); // Original log, can be kept or removed.
+        console.log('[PlayerProfilePage] Datos del jugador establecidos en el estado:', data); // <--- ADDED THIS
         setPlayerData(data);
 
         if (data && data.id) { // Ensure playerData and its id is available
@@ -85,14 +86,6 @@ const PlayerProfilePage = () => {
   return (
     <div className="player-profile-page">
       <ProfileHeader playerData={playerData} />
-      <div className="profile-actions"> {/* Container for action buttons */}
-        <button 
-          className="edit-player-button" 
-          onClick={() => navigate(`/players/${playerId}/edit`)} // Update onClick handler
-        >
-          Editar Jugador
-        </button>
-      </div>
       {/* ProfileTabs recibe playerData y renderiza las pestañas (General, Stats, etc.) */}
       <ProfileTabs playerData={playerData} lastReport={lastReport} lastReportLoading={lastReportLoading} />
     </div>

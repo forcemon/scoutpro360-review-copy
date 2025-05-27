@@ -50,10 +50,14 @@ export const fetchPlayerDetail = async (playerId) => {
     // --- ASEGURAR BARRA DIAGONAL FINAL ---
     const response = await api.get(`/players/${playerId}/`); // <-- Asegúrate de que la URL termina en /
     // --- FIN ASEGURAR BARRA DIAGONAL ---
-    console.log('[playerService] Respuesta completa de Axios (detalle):', response);
+    console.log('[playerService] Respuesta COMPLETA de fetchPlayerDetail:', response); // <--- ADDED THIS
+    console.log('[playerService] Datos RECIBIDOS de fetchPlayerDetail:', response.data); // <--- ADDED THIS
+    // console.log('[playerService] Respuesta completa de Axios (detalle):', response); // Original log line, can be removed or kept
     return response.data; // Devuelve solo los datos del backend
   } catch (error) {
     // Logueamos el error aquí también para más detalle si es necesario
+    // The user-provided example for console.error is slightly different, 
+    // keeping the original more detailed one for now unless specified to change it.
     console.error(`[playerService] Error en fetchPlayerDetail para ID ${playerId}:`, error.response ? error.response.data : error.message, error); // Log completo del error
     // Relanzamos el error para que lo capture el componente
     throw error;
