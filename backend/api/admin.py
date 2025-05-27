@@ -2,7 +2,7 @@
 from django.contrib import admin
 from .models import (
     Player, Team, Report, UserProfile, ReportAttachment,
-    PlayerInterest, Offer, PlayerHistoricalData # Asegúrate que todos los modelos estén importados
+    PlayerInterest, Offer, PlayerHistoricalData, PlayerTeamHistory # Asegúrate que todos los modelos estén importados
 )
 from django.utils.html import format_html
 from django.urls import reverse # Importar reverse
@@ -14,9 +14,16 @@ class ReportAttachmentInline(admin.TabularInline): # O admin.StackedInline
 
 class PlayerHistoricalDataInline(admin.TabularInline):
     model = PlayerHistoricalData
-    fields = ('date_recorded', 'market_value', 'velocidad', 'resistencia', 'notes')
+    fields = ('date_recorded', 'market_value', 'height', 'weight', 'control', 'pase', 'precision_tiro', 'anticipacion', 'posicionamiento', 'vision_juego', 'velocidad', 'resistencia', 'notes')
     extra = 1
     ordering = ['-date_recorded']
+
+class PlayerTeamHistoryInline(admin.TabularInline):
+    model = PlayerTeamHistory
+    fields = ('team', 'start_date', 'end_date', 'notes')
+    extra = 1
+    autocomplete_fields = ['team']
+    ordering = ['-start_date']
 
 class ReportInline(admin.TabularInline):
     model = Report
@@ -80,7 +87,7 @@ class PlayerAdmin(admin.ModelAdmin):
     )
     readonly_fields = ('calculated_age', 'created_at', 'updated_at')
     list_per_page = 20
-    inlines = [PlayerHistoricalDataInline, ReportInline] # Añadir los inlines
+    inlines = [PlayerHistoricalDataInline, ReportInline, PlayerTeamHistoryInline] # Añadir los inlines
 
     def display_image_thumbnail(self, obj):
         if obj.image_url:
@@ -226,9 +233,9 @@ class OfferAdmin(admin.ModelAdmin):
 
 @admin.register(PlayerHistoricalData)
 class PlayerHistoricalDataAdmin(admin.ModelAdmin):
-    list_display = ('player_name', 'date_recorded', 'market_value_display', 'velocidad', 'resistencia') # Ejemplo
+    list_display = ('player_name', 'date_recorded', 'market_value_display', 'height', 'weight', 'control', 'pase', 'precision_tiro', 'anticipacion', 'posicionamiento', 'vision_juego', 'velocidad', 'resistencia')
     list_filter = ('player__name', 'date_recorded') # Filtrar por nombre de jugador
-    search_fields = ('player__name', 'notes')
+    search_fields = ('player__name', 'notes', 'height', 'weight', 'control', 'pase', 'precision_tiro', 'anticipacion', 'posicionamiento', 'vision_juego') # Added new fields to search
     autocomplete_fields = ['player']
     date_hierarchy = 'date_recorded'
 
@@ -238,4 +245,23 @@ class PlayerHistoricalDataAdmin(admin.ModelAdmin):
     def market_value_display(self, obj):
         return f"{obj.market_value}" if obj.market_value is not None else "N/A"
     market_value_display.short_description = 'Valor Mercado Hist.'
+
+
+@admin.register(PlayerTeamHistory)
+class PlayerTeamHistoryAdmin(admin.ModelAdmin):
+    list_display = ('player_name', 'team_name', 'start_date', 'end_date', 'notes')
+    search_fields = ('player__name', 'team__name', 'notes')
+    list_filter = ('team', 'start_date', 'end_date')
+    autocomplete_fields = ['player', 'team']
+    date_hierarchy = 'start_date'
+
+    def player_name(self, obj):
+        return obj.player.name
+    player_name.short_description = 'Jugador'
+    player_name.admin_order_field = 'player__name'
+
+    def team_name(self, obj):
+        return obj.team.name if obj.team else "N/A"
+    team_name.short_description = 'Equipo'
+    team_name.admin_order_field = 'team__name'
 
