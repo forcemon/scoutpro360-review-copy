@@ -31,6 +31,7 @@ AttributeItem.propTypes = {
 };
 
 const PhysicalTabContent = ({ playerData }) => {
+  console.log('[PhysicalTabContent] playerData recibida:', playerData); // <--- ADD THIS
   if (!playerData) {
     return <div className="physical-tab-content card"><p>Cargando datos físicos...</p></div>;
   }
