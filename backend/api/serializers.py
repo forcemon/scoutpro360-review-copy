@@ -37,6 +37,7 @@ class PlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Player
+        exclude = ['salto']
         fields = [
             'id', 'name', 'team_name', 'team_id', 
             'position1', 'position2', 'position3',
